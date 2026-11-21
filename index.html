@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuestionario web Aquareforma</title>
+<meta name="description" content="Cuestionario para crear la web de Aquareforma: servicios, obras, estilo y funciones.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#123D8B">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Cuestionario web de Aquareforma">
+<meta property="og:description" content="Cuéntame todo sobre tu empresa, tus obras y tu estilo para crear tu web. Se rellena desde el móvil.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23123D8B'/%3E%3Cpath d='M4 20c3 0 3-3 6-3s3 3 6 3 3-3 6-3 3 3 6 3v8H4z' fill='%2322B8D8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Plano de obra: papel vegetal azul pálido con retícula, cabecera y portada en azul cianotipo, el agua es el único color vivo y el amarillo de obra solo marca la acción principal. */
+  --paper:#EDF3F8;
+  --card:#FFFFFF;
+  --ink:#0B2240;
+  --muted:#4F647A;
+  --line:#C7D6E4;
+  --line-soft:#DDE7F0;
+  --blueprint:#123D8B;
+  --blueprint-deep:#0B2A66;
+  --aqua:#12B3D6;
+  --aqua-ink:#08748F;
+  --aqua-wash:#E1F5FA;
+  --sun:#FFC21A;
+  --f-display:'Archivo','Arial Narrow','Helvetica Neue',Arial,sans-serif;
+  --f-body:'Atkinson Hyperlegible','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --f-mono:'DM Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5Q11 -1 22 5T44 5V10H0Z' fill='%2312B3D6'/%3E%3C/svg%3E");
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background-color:var(--paper);color:var(--ink);
+  font:400 17px/1.5 var(--f-body);
+  background-image:
+    linear-gradient(rgba(18,61,139,.09) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(18,61,139,.09) 1px,transparent 1px),
+    linear-gradient(rgba(18,61,139,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(18,61,139,.045) 1px,transparent 1px);
+  background-size:110px 110px,110px 110px,22px 22px,22px 22px;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3,p,dl,dd,ul,ol{margin:0;padding:0}
+ul,ol{list-style:none}
+:focus-visible{outline:3px solid var(--aqua);outline-offset:2px}
+.ic{display:inline-flex;width:1.15em;height:1.15em;flex:none}
+.ic svg{width:100%;height:100%;display:block}
+.mono{font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase}
+
+/* ---------- cabecera fija ---------- */
+.top{position:sticky;top:0;z-index:30;background:var(--blueprint-deep);color:#fff;border-bottom:3px solid var(--aqua)}
+.top-in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:8px 16px}
+.tube{position:relative;width:15px;height:40px;flex:none;border:1.5px solid rgba(255,255,255,.75);border-radius:3px 3px 8px 8px;overflow:hidden;background:rgba(255,255,255,.06)}
+.tube i{position:absolute;left:0;right:0;bottom:0;height:0;background:var(--aqua);transition:height .7s cubic-bezier(.2,.7,.2,1)}
+.tube i::before{content:"";position:absolute;left:0;right:0;top:-4px;height:5px;background:var(--wave) repeat-x;background-size:14px 5px;animation:wave 2.2s linear infinite}
+.top-t{flex:1;min-width:0}
+.top-l1{display:block;color:rgba(255,255,255,.72);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-l2{display:block;font:800 16px/1.2 var(--f-display);font-stretch:112%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-save{display:none;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.7);white-space:nowrap}
+.top-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);border-radius:6px;color:#fff;font-weight:700;font-size:15px}
+.top-btn[aria-expanded=true]{background:#fff;color:var(--blueprint-deep)}
+.idx{position:absolute;left:0;right:0;top:100%;background:var(--card);color:var(--ink);border-bottom:3px solid var(--blueprint);box-shadow:0 20px 40px -20px rgba(11,34,64,.5)}
+.idx-in{max-width:760px;margin:0 auto;padding:8px 16px 14px;display:grid;gap:2px}
+.idx-row{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:6px 8px;background:none;border:0;border-bottom:1px solid var(--line-soft);text-align:left}
+.idx-row:last-child{border-bottom:0}
+.idx-row.cur{background:var(--aqua-wash)}
+.idx-n{font:500 12px var(--f-mono);width:2.2rem;color:var(--aqua-ink)}
+.idx-t{flex:1;font-weight:700}
+.idx-c{font:500 12px var(--f-mono);color:var(--muted)}
+@keyframes wave{to{background-position-x:14px}}
+@media(min-width:520px){.top-save{display:block}}
+
+/* ---------- portada ---------- */
+.hero{background-color:var(--blueprint);color:#fff;
+  background-image:
+    linear-gradient(rgba(255,255,255,.11) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.11) 1px,transparent 1px),
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:110px 110px,110px 110px,22px 22px,22px 22px;
+  border-bottom:4px solid var(--aqua)}
+.hero-in{max-width:760px;margin:0 auto;padding:30px 16px 34px}
+.hero-eyebrow{color:rgba(255,255,255,.78)}
+.hero h1{font:800 clamp(42px,13vw,82px)/.94 var(--f-display);font-stretch:125%;letter-spacing:-.018em;margin:14px 0 18px;text-wrap:balance}
+.hero h1 em{font-style:normal;text-decoration:underline;text-decoration-color:var(--sun);text-decoration-thickness:.07em;text-underline-offset:.1em}
+.hero-lead{font-size:19px;line-height:1.45;max-width:34em;color:rgba(255,255,255,.92);text-wrap:pretty}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;margin-top:26px}
+@media(min-width:700px){.hero-grid{grid-template-columns:auto minmax(0,1fr);align-items:end}}
+.tb{display:grid;grid-template-columns:auto minmax(0,1fr);border:1px solid rgba(255,255,255,.6);font:500 12px/1.25 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;align-self:start}
+.tb dt,.tb dd{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.35)}
+.tb dt{border-right:1px solid rgba(255,255,255,.35);color:rgba(255,255,255,.7)}
+.tb dd{margin:0;min-width:11em}
+.tb dt:nth-last-of-type(1),.tb dd:nth-last-of-type(1){border-bottom:0}
+.plan{width:100%;max-width:430px;height:auto;color:#fff;justify-self:end}
+.plan text{font:500 10px var(--f-mono);letter-spacing:.08em;fill:currentColor;stroke:none}
+.cta-row{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:28px;max-width:430px}
+.cta-note{font-size:14.5px;color:rgba(255,255,255,.8);margin-top:12px;max-width:30em}
+
+/* ---------- botones ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:8px 22px;border-radius:6px;border:2px solid transparent;font:700 17px/1.15 var(--f-body);text-decoration:none;text-align:center;transition:transform .1s,background .15s,border-color .15s}
+.btn:active{transform:translateY(1px)}
+.btn small{display:block;font-weight:400;font-size:13.5px;opacity:.85;margin-top:2px}
+.btn-sun{background:var(--sun);border-color:var(--sun);color:#1B1400}
+.btn-sun:hover{background:#FFD04D}
+.btn-line{background:transparent;border-color:rgba(255,255,255,.85);color:#fff}
+.btn-blue{background:var(--blueprint);border-color:var(--blueprint);color:#fff}
+.btn-blue:hover{background:var(--blueprint-deep)}
+.btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--blueprint)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn-link{background:none;border:0;color:inherit;text-decoration:underline;text-underline-offset:3px;font:inherit;padding:10px 0;min-height:44px}
+
+/* ---------- hojas ---------- */
+.wrap{max-width:760px;margin:0 auto;padding:22px 16px 64px}
+.sheet-in{animation:rise .3s ease-out}
+@keyframes rise{from{transform:translateY(8px)}}
+.sh-tag{color:var(--aqua-ink)}
+.sh-title{font:800 clamp(32px,9vw,48px)/1 var(--f-display);font-stretch:118%;letter-spacing:-.012em;margin:8px 0 12px;text-wrap:balance}
+.sh-lead{max-width:36em;color:var(--muted);text-wrap:pretty}
+.sh-tools{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:18px 0 18px}
+.seg{display:inline-grid;grid-auto-flow:column;border:1.5px solid var(--line);border-radius:6px;background:#fff;overflow:hidden}
+.seg button{border:0;background:none;padding:8px 14px;min-height:44px;font-size:15px;font-weight:700;color:var(--muted)}
+.seg button+button{border-left:1.5px solid var(--line)}
+.seg button[aria-pressed=true]{background:var(--blueprint);color:#fff}
+.sh-count{font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 1px 0 rgba(11,34,64,.04),0 18px 36px -24px rgba(11,34,64,.35)}
+.q{padding:22px 18px;border-top:1px solid var(--line-soft)}
+.q:first-child{border-top:0}
+.q-top{display:grid;grid-template-columns:2.6rem 1fr;align-items:start}
+.q-n{display:grid;place-items:center;width:2.3rem;height:1.55rem;margin-top:.12rem;border-radius:3px;background:var(--aqua-wash);color:var(--aqua-ink);font:500 12px/1 var(--f-mono);letter-spacing:.03em;transition:background .2s,color .2s}
+.q.done .q-n{background:var(--aqua-ink);color:#fff}
+.q-l{display:block;margin:0;font-weight:700;font-size:18px;line-height:1.3;text-wrap:balance}
+.q-h{margin-top:4px;color:var(--muted);font-size:15px;line-height:1.4;text-wrap:pretty}
+.q-c{margin-top:14px}
+.q-w{margin-top:10px;font:500 12px/1.4 var(--f-mono);letter-spacing:.04em;color:var(--aqua-ink)}
+.q-w b{font-weight:500;color:var(--muted)}
+.q-note{padding:14px 18px;background:var(--aqua-wash);border-top:1px solid var(--line-soft);color:var(--ink);font-size:15.5px}
+.q-tips{padding:20px 18px;background:#FFF9E3;border-top:1px solid var(--line-soft)}
+.q-tips h3{font:800 18px/1.2 var(--f-display);font-stretch:110%;margin-bottom:10px}
+.q-tips li{position:relative;padding:6px 0 6px 26px;font-size:16px}
+.q-tips li::before{content:"";position:absolute;left:2px;top:.85em;width:12px;height:12px;border:2px solid var(--ink);border-radius:2px;background:var(--sun)}
+
+/* ---------- controles ---------- */
+.inp,.area,.sel{width:100%;min-width:0;min-height:50px;padding:12px 14px;background:#fff;border:1.5px solid var(--line);border-radius:6px;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+.inp:focus,.area:focus,.sel:focus{outline:none;border-color:var(--blueprint);box-shadow:0 0 0 3px rgba(18,61,139,.18)}
+.area{display:block;min-height:108px;resize:vertical;line-height:1.45}
+.inp::placeholder,.area::placeholder{color:#7A8FA4}
+.sel{appearance:none;-webkit-appearance:none;padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B2240' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:9px 15px;border:1.5px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-size:15.5px;line-height:1.2;transition:background .15s,border-color .15s,color .15s}
+.chip:hover{border-color:var(--blueprint)}
+.chip.on{background:var(--blueprint);border-color:var(--blueprint);color:#fff}
+.chip .ic{width:14px;height:14px}
+.chip-plus{border-style:dashed;color:var(--aqua-ink)}
+.chip-add-row{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+.chip-inp{min-height:44px;width:min(260px,70vw);padding:8px 14px;border:1.5px solid var(--blueprint);border-radius:999px;background:#fff}
+.choice{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+@media(min-width:560px){.choice.cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.opt{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:11px 14px;border:1.5px solid var(--line);border-radius:6px;background:#fff;text-align:left;line-height:1.3;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--blueprint)}
+.opt-mark{position:relative;flex:none;width:22px;height:22px;border:2px solid var(--line);border-radius:50%;background:#fff}
+.opt.on{border-color:var(--blueprint);background:#F0F5FF;box-shadow:inset 4px 0 0 var(--blueprint)}
+.opt.on .opt-mark{border-color:var(--blueprint)}
+.opt.on .opt-mark::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--blueprint)}
+.opt-text{flex:1}
+.opt-text small{display:block;margin-top:1px;color:var(--muted);font-size:14px}
+.swatches{display:flex;flex:none;padding-left:6px}
+.swatches i{display:block;width:24px;height:24px;margin-left:-7px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.multi{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.fl{display:block;margin:0 0 6px;font-weight:700;font-size:15.5px}
+.tones{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+.tone-ends{display:flex;justify-content:space-between;gap:12px;font-weight:700;font-size:15.5px}
+.tone-read{display:block;margin-top:4px;font:500 12px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--aqua-ink)}
+.rng{-webkit-appearance:none;appearance:none;display:block;width:100%;height:36px;margin:6px 0 0;background:transparent}
+.rng::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--line),var(--line))}
+.rng::-moz-range-track{height:6px;border-radius:3px;background:var(--line)}
+.rng::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-11px;border-radius:50%;border:3px solid #fff;background:var(--blueprint);box-shadow:0 0 0 1.5px var(--blueprint),0 2px 6px rgba(0,0,0,.25)}
+.rng::-moz-range-thumb{width:22px;height:22px;border-radius:50%;border:3px solid #fff;background:var(--blueprint);box-shadow:0 0 0 1.5px var(--blueprint)}
+.rng.untouched::-webkit-slider-thumb{background:#fff;box-shadow:0 0 0 1.5px var(--muted),0 2px 6px rgba(0,0,0,.15)}
+.rng.untouched::-moz-range-thumb{background:#fff;box-shadow:0 0 0 1.5px var(--muted)}
+.tone-ticks{display:flex;justify-content:space-between;padding:0 13px;margin-top:-2px}
+.tone-ticks i{width:2px;height:8px;background:var(--line)}
+
+/* ---------- servicios ---------- */
+.svcs{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.svc{border:1.5px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
+.svc.on{border-color:var(--blueprint)}
+.svc-h{display:flex;align-items:center;gap:8px;padding:4px 14px 4px 4px}
+.svc-tog{display:flex;align-items:center;gap:12px;flex:1;min-width:0;min-height:66px;padding:8px 8px 8px 10px;background:none;border:0;text-align:left}
+.svc-ic{display:grid;place-items:center;width:42px;height:42px;flex:none;border-radius:6px;background:var(--aqua-wash);color:var(--blueprint)}
+.svc-ic .ic{width:26px;height:26px}
+.svc:not(.on) .svc-ic{background:#EEF1F4;color:#8394A6}
+.svc-n{flex:1;font-weight:700;line-height:1.25}
+.svc-n small{display:block;margin-top:2px;font-weight:400;font-size:14px;color:var(--muted)}
+.svc-chev{transition:transform .2s;color:var(--muted)}
+.svc.open .svc-chev{transform:rotate(180deg)}
+.sw{position:relative;flex:none;width:52px;height:32px;border:0;border-radius:999px;background:#C3D1DF;transition:background .2s}
+.sw::after{content:"";position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.sw[aria-checked=true]{background:var(--aqua-ink)}
+.sw[aria-checked=true]::after{transform:translateX(20px)}
+.svc-b{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;padding:4px 14px 18px;border-top:1px dashed var(--line)}
+.svc-q{margin:14px 0 -6px;font-weight:700;font-size:15.5px}
+.peso{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--line);border-radius:6px;overflow:hidden}
+.peso button{min-height:46px;padding:8px 6px;background:#fff;border:0;font-weight:700;font-size:15px;color:var(--muted)}
+.peso button+button{border-left:1.5px solid var(--line)}
+.peso button[aria-pressed=true]{background:var(--blueprint);color:#fff}
+
+/* ---------- obras ---------- */
+.projs{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.proj{border:1.5px solid var(--line);border-radius:8px;background:#fff}
+.proj.open{border-color:var(--blueprint)}
+.proj-h{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;background:none;border:0;text-align:left;min-height:60px}
+.proj-code{flex:none;padding:4px 8px;border-radius:3px;background:var(--blueprint);color:#fff;font:500 12px/1 var(--f-mono);letter-spacing:.07em}
+.proj-t{flex:1;min-width:0;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.proj-t.empty{font-weight:400;color:var(--muted)}
+.proj-star{color:#B98700}
+.proj-b{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;padding:16px 14px 18px;border-top:1px dashed var(--line)}
+.proj-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.star-btn{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 14px;border:1.5px solid var(--line);border-radius:6px;background:#fff;font-weight:700;font-size:15px}
+.star-btn[aria-pressed=true]{background:var(--sun);border-color:#C99700;color:#1B1400}
+.del-btn{display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:0 12px;border:0;background:none;color:#A3261E;font-weight:700;font-size:15px}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;border:2px dashed var(--blueprint);border-radius:8px;background:#fff;color:var(--blueprint);font-weight:700}
+.code-hint{padding:10px 12px;border-radius:6px;background:var(--aqua-wash);font-size:14.5px}
+.code-hint b{font-family:var(--f-mono);font-weight:500;letter-spacing:.05em}
+
+/* ---------- propuestas de estilo ---------- */
+.props{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.prop{position:relative;border:1.5px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
+.prop.fav{border-color:#C99700;box-shadow:0 0 0 3px rgba(255,194,26,.45)}
+.prop-fav-tag{margin-left:auto;display:none;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:var(--sun);color:#1B1400;font:500 11.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase}
+.prop.fav .prop-fav-tag{display:inline-flex}
+.prop-mock{padding:14px;background:#DCE7F1}
+.prop-b{padding:16px 16px 18px;display:grid;gap:12px}
+.prop-t{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.prop-k{font:800 26px/1 var(--f-display);font-stretch:120%;color:var(--blueprint)}
+.prop-n{font:800 20px/1.1 var(--f-display);font-stretch:110%}
+.prop-v{font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--aqua-ink)}
+.prop-d{color:var(--muted);font-size:15.5px}
+.prop-sw{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.prop-sw .swatches{padding-left:7px}
+.prop-words{font-size:14.5px;color:var(--muted)}
+.react{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.react button{min-height:48px;padding:6px 4px;border:1.5px solid var(--line);border-radius:6px;background:#fff;font-weight:700;font-size:14.5px;line-height:1.15}
+.react button[aria-pressed=true][data-r=amo]{background:var(--blueprint);border-color:var(--blueprint);color:#fff}
+.react button[aria-pressed=true][data-r=quiza]{background:var(--aqua-wash);border-color:var(--aqua-ink);color:var(--ink)}
+.react button[aria-pressed=true][data-r=no]{background:#EEF1F4;border-color:#8394A6;color:var(--ink)}
+.prop-sub{margin-top:18px}
+
+/* ---------- maquetas de estilo ---------- */
+.mk{position:relative;container-type:inline-size;width:100%;aspect-ratio:4/3;border-radius:8px;overflow:hidden;font-size:3cqw;line-height:1.2;box-shadow:0 10px 24px -12px rgba(11,34,64,.55)}
+.mk>*{position:absolute}
+.mk-bar{left:5cqw;right:5cqw;top:4cqw;display:flex;align-items:center;gap:2cqw;font:700 3.3cqw var(--f-display);letter-spacing:.03em}
+.mk-bar i.d{width:3.6cqw;height:3.6cqw;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:currentColor}
+.mk-menu{margin-left:auto;display:grid;gap:.9cqw}
+.mk-menu i{display:block;width:5cqw;height:.55cqw;background:currentColor}
+/* A */
+.mk-a{background:radial-gradient(110% 80% at 90% 115%,#17B0D0 0,rgba(23,176,208,0) 58%),linear-gradient(160deg,#04132E 10%,#0A3A78);color:#fff}
+.mk-a .caus{inset:0;width:100%;height:100%}
+.mk-a-h{left:5cqw;top:18cqw;font:800 7.2cqw/1.04 var(--f-display);font-stretch:125%;text-transform:uppercase}
+.mk-a-s{left:5cqw;top:36.5cqw;font:500 2.5cqw var(--f-mono);letter-spacing:.14em;opacity:.78}
+.mk-a-cta{left:5cqw;top:44cqw;padding:1.7cqw 4.2cqw;border:.35cqw solid #fff;border-radius:99px;font-weight:700;font-size:3cqw}
+.mk-a-strip{left:5cqw;right:5cqw;bottom:-7cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw}
+.mk-a-strip i{height:17cqw;border-radius:2cqw;border:.3cqw solid rgba(255,255,255,.28);background:linear-gradient(135deg,rgba(255,255,255,.3),rgba(255,255,255,.05))}
+/* B */
+.mk-b{background:#fff;color:#0B5E73;font-family:var(--f-body)}
+.mk-b .blob{right:-14cqw;top:-12cqw;width:66cqw;height:66cqw;border-radius:50%;background:#F4EBDA}
+.mk-b .disc{right:8cqw;top:11cqw;width:36cqw;height:36cqw;border-radius:50%;background:linear-gradient(160deg,#6ADAF0,#17B0D0)}
+.mk-b .disc2{right:13cqw;top:35cqw;width:14cqw;height:14cqw;border-radius:50%;background:#FFC21A}
+.mk-b-h{left:5cqw;top:17cqw;width:52cqw;font:800 7.6cqw/1.04 var(--f-body)}
+.mk-b-p{left:5cqw;top:42cqw;width:46cqw;font-size:3.1cqw;color:#3C7787}
+.mk-b-btn{left:5cqw;top:55cqw;padding:2.3cqw 5.2cqw;border-radius:99px;background:#17B0D0;color:#fff;font-weight:700;font-size:3.2cqw}
+.mk-b-bub{right:6cqw;top:56cqw;padding:2cqw 3cqw;border-radius:3cqw 3cqw 3cqw .8cqw;background:#fff;box-shadow:0 1cqw 3cqw rgba(0,0,0,.14);font-size:2.8cqw;font-weight:700}
+.mk-b .mk-bar{color:#0B5E73}
+/* C */
+.mk-c{background:#1E2227;color:#fff}
+.mk-c .stripe{left:0;right:0;top:0;height:3.4cqw;background:repeating-linear-gradient(135deg,#FFC21A 0 2.4cqw,#1E2227 2.4cqw 4.8cqw)}
+.mk-c .mk-bar{top:7.5cqw;font-stretch:80%;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.mk-c-h{left:5cqw;top:18cqw;font:900 11cqw/.92 var(--f-display);font-stretch:62%;text-transform:uppercase}
+.mk-c-st{left:5cqw;right:5cqw;top:43cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:2.5cqw}
+.mk-c-st div{border-top:.55cqw solid #FFC21A;padding-top:1.4cqw}
+.mk-c-st b{display:block;font:800 7.4cqw/1 var(--f-display);font-stretch:75%;color:#FFC21A}
+.mk-c-st span{font:500 2.2cqw var(--f-mono);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
+.mk-c-cta{left:5cqw;bottom:5cqw;padding:2cqw 4.6cqw;background:#FFC21A;color:#1E2227;font:800 3cqw var(--f-display);font-stretch:85%;letter-spacing:.06em;text-transform:uppercase}
+/* D */
+.mk-d{background:#fff;color:#14202E}
+.mk-d .mk-bar{font:italic 600 3.8cqw Georgia,'Times New Roman',serif;letter-spacing:0}
+.mk-d-nav{margin-left:auto;font:500 2.3cqw var(--f-mono);letter-spacing:.08em;text-transform:uppercase;opacity:.65}
+.mk-d-ba{left:5cqw;right:5cqw;top:14cqw;height:37cqw;display:grid;grid-template-columns:1fr 1fr;border-radius:1cqw;overflow:hidden}
+.mk-d-ba .a,.mk-d-ba .b{position:relative}
+.mk-d-ba .a{background:linear-gradient(165deg,#A39A8F,#6F675E)}
+.mk-d-ba .b{background:linear-gradient(165deg,#C6F1FB,#12B3D6)}
+.mk-d-ba em{position:absolute;bottom:2cqw;font:500 2.3cqw var(--f-mono);font-style:normal;letter-spacing:.12em;color:#fff}
+.mk-d-ba .a em{left:2.4cqw}
+.mk-d-ba .b em{right:2.4cqw}
+.mk-d-hd{position:absolute;left:50%;top:0;bottom:0;width:.5cqw;background:#fff;transform:translateX(-50%)}
+.mk-d-hd::after{content:"";position:absolute;left:50%;top:50%;width:6cqw;height:6cqw;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 .5cqw 2cqw rgba(0,0,0,.3)}
+.mk-d-cap{left:5cqw;top:54cqw;font:italic 3.5cqw Georgia,'Times New Roman',serif}
+.mk-d-th{left:5cqw;right:5cqw;bottom:4cqw;display:grid;grid-template-columns:repeat(4,1fr);gap:1.6cqw}
+.mk-d-th i{height:8cqw;border-radius:.8cqw;background:#E3ECF3}
+.mk-d-th i:nth-child(2){background:#CFE7EE}
+.mk-d-th i:nth-child(4){background:#EAE3DA}
+.mk-note{margin-top:8px;font:500 11px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+
+.ok-btn{display:inline-flex;align-items:center;gap:8px;margin-top:10px;min-height:44px;padding:0 14px;border:1.5px dashed var(--aqua-ink);border-radius:6px;background:#fff;color:var(--aqua-ink);font-weight:700;font-size:15px}
+.ok-btn .ic{width:16px;height:16px}
+
+/* ---------- campos en dos columnas ---------- */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media(max-width:340px){.two{grid-template-columns:1fr}}
+
+/* ---------- navegación entre hojas ---------- */
+.nav{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;margin-top:22px}
+.nav .btn-blue{justify-content:space-between}
+
+/* ---------- revisión y envío ---------- */
+.pool{position:relative;height:170px;border:2.5px solid var(--blueprint);border-radius:6px 6px 18px 18px;background:#fff;overflow:hidden}
+.pool-w{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(var(--aqua),#0A8FB0);transition:height .9s cubic-bezier(.2,.7,.2,1)}
+.pool-w::before{content:"";position:absolute;left:0;right:0;top:-9px;height:10px;background:var(--wave) repeat-x;background-size:44px 10px;animation:wave44 2.6s linear infinite}
+@keyframes wave44{to{background-position-x:44px}}
+.pool-t{position:absolute;left:0;top:0;bottom:0;width:48px;border-right:1.5px solid var(--blueprint);background:rgba(255,255,255,.55)}
+.pool-t span{position:absolute;left:6px;font:500 11px var(--f-mono);color:var(--blueprint-deep)}
+.pool-read{position:absolute;right:16px;top:12px;text-align:right;color:var(--ink)}
+.pool-read b{display:block;font:800 40px/1 var(--f-display);font-stretch:118%}
+.pool-read span{font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.pool-full{position:absolute;right:16px;bottom:12px;color:#fff;font:700 15px var(--f-body);opacity:0;transition:opacity .4s}
+.pool.full .pool-full{opacity:1}
+.sum{display:grid}
+.sum-row{display:grid;grid-template-columns:2.2rem 1fr auto;align-items:center;gap:6px 10px;width:100%;padding:14px 16px;background:none;border:0;border-top:1px solid var(--line-soft);text-align:left;min-height:64px}
+.sum-row:first-child{border-top:0}
+.sum-n{font:500 12px var(--f-mono);color:var(--aqua-ink)}
+.sum-t{font-weight:700}
+.sum-t small{display:block;font-weight:400;font-size:14px;color:var(--muted)}
+.sum-bar{grid-column:2/4;height:6px;border-radius:3px;background:var(--line-soft);overflow:hidden}
+.sum-bar i{display:block;height:100%;background:var(--aqua);border-radius:3px}
+.sum-go{display:inline-flex;align-items:center;gap:6px;color:var(--blueprint);font-weight:700;font-size:15px}
+.missing{padding:16px 18px;border-top:1px solid var(--line-soft);background:#FFF9E3}
+.missing h3{font:800 17px var(--f-display);font-stretch:110%;margin-bottom:8px}
+.missing button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:46px;padding:6px 0;background:none;border:0;border-bottom:1px solid rgba(11,34,64,.12);text-align:left;font-size:16px}
+.missing button:last-child{border-bottom:0}
+.consent{display:flex;gap:12px;align-items:flex-start;margin:22px 0 14px;padding:14px;border:1.5px solid var(--line);border-radius:8px;background:#fff;text-align:left;width:100%}
+.consent-box{flex:none;display:grid;place-items:center;width:26px;height:26px;border:2px solid var(--blueprint);border-radius:4px;color:#fff;background:#fff}
+.consent[aria-checked=true] .consent-box{background:var(--blueprint)}
+.consent .ic{width:16px;height:16px;opacity:0}
+.consent[aria-checked=true] .ic{opacity:1}
+.send{margin-top:22px;border:2px solid var(--blueprint);border-radius:10px;background:#fff;overflow:hidden}
+.send-h{padding:16px 18px;background:var(--blueprint);color:#fff}
+.send-h h3{font:800 24px/1.1 var(--f-display);font-stretch:118%}
+.send-h p{margin-top:6px;color:rgba(255,255,255,.88);font-size:15.5px}
+.step{display:grid;grid-template-columns:2.4rem 1fr;gap:4px 8px;padding:18px;border-top:1px solid var(--line-soft)}
+.step:first-of-type{border-top:0}
+.step-n{display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:var(--aqua-wash);color:var(--aqua-ink);font:500 14px var(--f-mono)}
+.step.ok .step-n{background:var(--aqua-ink);color:#fff}
+.step h4{margin:0;font-size:18px;line-height:1.3}
+.step p{color:var(--muted);font-size:15.5px;margin-top:2px}
+.step .acts{grid-column:2;display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:10px}
+.step-state{display:flex;align-items:center;gap:8px;color:var(--aqua-ink);font-weight:700;font-size:15px}
+.det{border-top:1px solid var(--line-soft);padding:14px 18px 18px}
+.det summary{min-height:44px;display:flex;align-items:center;font-weight:700;color:var(--blueprint);cursor:pointer}
+.det textarea{width:100%;height:260px;margin-top:8px;padding:12px;border:1.5px solid var(--line);border-radius:6px;font:13px/1.45 var(--f-mono);background:#F7FAFC;color:var(--ink)}
+.thanks{padding:16px 18px;border-top:1px solid var(--line-soft);background:var(--aqua-wash)}
+.thanks b{font-family:var(--f-display);font-stretch:110%}
+
+/* ---------- pie y avisos ---------- */
+.foot{background:var(--blueprint-deep);color:rgba(255,255,255,.82);font-size:14.5px}
+.foot-in{max-width:760px;margin:0 auto;padding:22px 16px 30px;display:grid;gap:6px}
+.foot b{color:#fff}
+.welcome-sec{max-width:760px;margin:0 auto;padding:26px 16px 0}
+.welcome-sec h2{font:800 26px/1.1 var(--f-display);font-stretch:116%;margin-bottom:14px}
+.how{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+.how li{display:grid;grid-template-columns:2.6rem 1fr;gap:0 8px;padding:16px 18px;border-top:1px solid var(--line-soft)}
+.how li:first-child{border-top:0}
+.how .how-n{display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--blueprint);color:#fff;font:500 14px var(--f-mono)}
+.how b{display:block;font-size:18px}
+.how span{color:var(--muted);font-size:15.5px}
+.tips li{position:relative;padding:12px 18px 12px 46px;border-top:1px solid var(--line-soft);font-size:16px}
+.tips li:first-child{border-top:0}
+.tips li::before{content:"";position:absolute;left:18px;top:1.05em;width:14px;height:14px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--aqua)}
+.toast{position:fixed;left:50%;bottom:22px;z-index:60;max-width:min(92vw,420px);padding:12px 18px;border-radius:6px;background:var(--ink);color:#fff;font-size:15.5px;box-shadow:0 12px 30px rgba(0,0,0,.3);opacity:0;pointer-events:none;transform:translate(-50%,16px);transition:opacity .25s,transform .25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+</style>
+</head>
+<body>
+<header class="top" id="top" hidden>
+  <div class="top-in">
+    <div class="tube" id="tube" aria-hidden="true"><i></i></div>
+    <div class="top-t">
+      <span class="mono top-l1" id="top-l1"></span>
+      <span class="top-l2" id="top-l2">Agua a 0,00 m de 1,60 m</span>
+    </div>
+    <span class="top-save" id="top-save"></span>
+    <button type="button" class="top-btn" id="idx-btn" aria-expanded="false" aria-controls="idx">
+      <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
+      Índice
+    </button>
+  </div>
+  <nav class="idx" id="idx" hidden aria-label="Índice del cuestionario"><div class="idx-in" id="idx-in"></div></nav>
+</header>
+<main id="main"><div id="view"></div></main>
+<footer class="foot">
+  <div class="foot-in">
+    <p><b>Cuestionario preparado por Cristian para Diego Wilson.</b></p>
+    <p>Tus respuestas se guardan en este móvil y no se envían a nadie hasta que tú lo hagas desde la hoja final.</p>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* ================================================================
+   CONFIGURACIÓN
+   ================================================================ */
+const CFG = {
+  empresa: "Aquareforma",
+  cliente: "Diego Wilson",
+  autor: "Cristian",
+  fecha: "21.11.2026",
+  /* Número de WhatsApp de quien recibe las respuestas, en formato internacional sin + ni espacios (ej. 34600111222). Vacío = Diego elige el contacto. */
+  whatsapp: "34628504340",
+  /* Email de quien recibe las respuestas. Se muestra como texto si se rellena. */
+  email: "",
+  storeKey: "aquareforma-cuestionario-v1"
+};
+
+/* ================================================================
+   ICONOS (trazo, 24x24)
+   ================================================================ */
+const _i = (d, sw) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (sw || 2) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + d + '</svg>';
+const ICONS = {
+  check: _i('<path d="M5 12.5l4.5 4.5L19 7.5"/>', 3),
+  chev: _i('<path d="M6 9l6 6 6-6"/>', 2.4),
+  star: _i('<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9L3.5 9.7l5.9-.8z"/>'),
+  plus: _i('<path d="M12 5v14M5 12h14"/>', 2.4),
+  x: _i('<path d="M6 6l12 12M18 6L6 18"/>', 2.4),
+  left: _i('<path d="M19 12H5M11 6l-6 6 6 6"/>', 2.4),
+  right: _i('<path d="M5 12h14M13 6l6 6-6 6"/>', 2.4),
+  list: _i('<path d="M4 6h16M4 12h16M4 18h10"/>', 2.4),
+  copy: _i('<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>'),
+  chat: _i('<path d="M4 5h16v11H9.5L5 20v-4H4z"/>'),
+  download: _i('<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>'),
+  trash: _i('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/>'),
+  /* servicios */
+  brick: _i('<rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9.3h18M3 14.7h18M9 4v5.3M15 9.3v5.4M9 14.7V20"/>'),
+  plumb: _i('<path d="M8 3c2.4 3 4 5 4 7.2a4 4 0 0 1-8 0C4 8 5.6 6 8 3z"/><path d="M17.5 10.5L14 16h3.5l-2 5.5 6-7.5H18z"/>'),
+  roller: _i('<rect x="3" y="3" width="14" height="6" rx="1.5"/><path d="M17 6h3v5h-9v3"/><rect x="9" y="14" width="4" height="7" rx="1"/>'),
+  bath: _i('<path d="M3 12h18v2a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zM6 12V6a2 2 0 0 1 4 0M7 19l-1 2M17 19l1 2"/>'),
+  pool: _i('<path d="M8 13V5a2 2 0 0 1 4 0M16 13V5a2 2 0 0 0-4 0M8 9h8"/><path d="M3 17c2 0 2-1.5 4.5-1.5S10 17 12 17s2.5-1.5 4.5-1.5S19 17 21 17M3 21c2 0 2-1.5 4.5-1.5S10 21 12 21s2.5-1.5 4.5-1.5S19 21 21 21"/>'),
+  wrench: _i('<path d="M14.5 3.5a4.5 4.5 0 0 0-4.2 6.1L3.6 16.3a2 2 0 0 0 2.8 2.8l6.7-6.7a4.5 4.5 0 0 0 6.1-4.2l-3 2.9-2.6-.6-.6-2.6z"/>'),
+  shield: _i('<path d="M12 3L5 6v5c0 4.5 3 8.2 7 10 4-1.8 7-5.5 7-10V6z"/><path d="M12 9c1.6 2 2.5 3 2.5 4.2a2.5 2.5 0 0 1-5 0C9.5 12 10.4 11 12 9z"/>'),
+  house: _i('<path d="M3 11l9-8 9 8M5 10v10h14V10M10 20v-6h4v6"/>')
+};
+/* Mapa de iconos de la barra de índice (reutiliza los de arriba) */
+
+/* ================================================================
+   SERVICIOS DE LA TARJETA
+   ================================================================ */
+const SERV = [
+  { id: "alb", name: "Albañilería", ic: "brick", items: ["Tabiques y divisiones", "Alicatados y solados", "Demoliciones", "Enfoscados y revocos", "Soleras y nivelación", "Arreglo de grietas y humedades", "Muros y cerramientos", "Escaleras y rampas", "Porches y terrazas", "Arreglos de fachada", "Ampliaciones", "Pequeñas reparaciones"] },
+  { id: "fon", name: "Fontanería y Electricidad", ic: "plumb", items: ["Cambio de tuberías", "Grifería y sanitarios", "Termos y calentadores", "Detección y reparación de fugas", "Desatascos", "Saneamiento", "Cuadro eléctrico", "Cableado y enchufes", "Iluminación LED", "Boletín eléctrico", "Domótica", "Cargador de coche eléctrico"] },
+  { id: "pla", name: "Pladur y Pintura", ic: "roller", items: ["Tabiques de pladur", "Falsos techos", "Trasdosados y aislamiento", "Aislamiento acústico", "Iluminación empotrada", "Pintura interior", "Pintura de fachada", "Quitar gotelé", "Lacado de puertas y muebles", "Estucos y acabados decorativos", "Microcemento"] },
+  { id: "ban", name: "Reformas de baños y cocinas", ic: "bath", items: ["Bañera por plato de ducha", "Baño completo", "Cocina completa", "Mamparas", "Muebles a medida", "Encimeras", "Alicatado y suelo", "Baños adaptados para mayores", "Aseos de locales", "Diseño y 3D previo", "Microcemento"] },
+  { id: "con", name: "Construcción de piscinas", ic: "pool", items: ["Piscina de hormigón proyectado", "Piscina de obra", "Prefabricada de poliéster", "Con liner", "Desbordante", "Infinity", "Climatizada", "Con spa o jacuzzi", "Con cascada o fuentes", "Solárium y playa", "Cerramientos y vallas de seguridad", "Cubiertas y cobertores", "Iluminación LED", "Depuración y sal", "Proyecto y licencia"] },
+  { id: "man", name: "Mantenimiento y reparación de piscinas", ic: "wrench", items: ["Mantenimiento periódico", "Tratamiento del agua", "Puesta en marcha de temporada", "Vaciado y limpieza a fondo", "Cambio de liner", "Reparación de fugas", "Cambio de depuradora y bomba", "Reparación de gresite y azulejos", "Cuadro eléctrico y automatismos", "Bomba de calor", "Revisión anual", "Mantenimiento por abono"] },
+  { id: "imp", name: "Impermeabilizaciones y exteriores", ic: "shield", items: ["Impermeabilización de terrazas", "Cubiertas y azoteas", "Humedades en muros y sótanos", "Pavimentos exteriores", "Césped artificial", "Pérgolas y porches", "Barbacoas y cocinas exteriores", "Tarima exterior", "Cerramientos y vallados", "Riego y jardinería", "Limpieza y rejuntado de suelos", "Arreglo de fachadas"] },
+  { id: "int", name: "Reformas integrales de viviendas", ic: "house", items: ["Reforma integral llave en mano", "Proyecto y dirección de obra", "Gestión de licencias", "Cambio de distribución", "Rehabilitación de viviendas antiguas", "Ampliaciones", "Reforma de locales", "Diseño de interiores", "Coordinación de gremios", "Segundas residencias", "Viviendas para alquiler turístico"] }
+];
+
+/* ================================================================
+   PROPUESTAS DE ESTILO (maquetas de ejemplo)
+   ================================================================ */
+const PROPS = [
+  {
+    k: "A", name: "Fondo de piscina", vibe: "Premium y envolvente",
+    desc: "Mucho azul profundo y fotos a pantalla completa. Pensada para piscinas de diseño y reformas de nivel alto.",
+    words: "Elegante, inmersiva, cinematográfica", sw: ["#04132E", "#0A3A78", "#17B0D0", "#FFFFFF"],
+    mock: '<div class="mk mk-a" aria-hidden="true">' +
+      '<svg class="caus" viewBox="0 0 200 150" preserveAspectRatio="none"><g fill="none" stroke="#fff" stroke-opacity=".17" stroke-width=".8"><path d="M0 70c18-9 36 9 54 0s36-9 54 0 36 9 54 0 24-6 38-2"/><path d="M0 92c18-9 36 9 54 0s36-9 54 0 36 9 54 0 24-6 38-2"/><path d="M0 114c18-9 36 9 54 0s36-9 54 0 36 9 54 0 24-6 38-2"/><path d="M0 136c18-9 36 9 54 0s36-9 54 0 36 9 54 0 24-6 38-2"/></g></svg>' +
+      '<div class="mk-bar"><i class="d"></i><span>Aquareforma</span><span class="mk-menu"><i></i><i></i><i></i></span></div>' +
+      '<div class="mk-a-h">Piscinas que<br>se sienten</div>' +
+      '<div class="mk-a-s">DISEÑO · OBRA · MANTENIMIENTO</div>' +
+      '<div class="mk-a-cta">Pedir presupuesto</div>' +
+      '<div class="mk-a-strip"><i></i><i></i><i></i></div></div>'
+  },
+  {
+    k: "B", name: "Costa luminosa", vibe: "Fresca y cercana",
+    desc: "Mucha luz, formas redondeadas y trato de tú a tú. Hace muy fácil escribirte por WhatsApp.",
+    words: "Amable, luminosa, familiar", sw: ["#FFFFFF", "#F4EBDA", "#17B0D0", "#0B5E73"],
+    mock: '<div class="mk mk-b" aria-hidden="true">' +
+      '<i class="blob"></i><i class="disc"></i><i class="disc2"></i>' +
+      '<div class="mk-bar"><i class="d"></i><span>Aquareforma</span><span class="mk-menu"><i></i><i></i><i></i></span></div>' +
+      '<div class="mk-b-h">Tu casa, como la soñaste.</div>' +
+      '<div class="mk-b-p">Reformas y piscinas en la Costa del Sol, de tú a tú.</div>' +
+      '<div class="mk-b-btn">Escríbeme por WhatsApp</div>' +
+      '<div class="mk-b-bub">¿Qué reformamos hoy?</div></div>'
+  },
+  {
+    k: "C", name: "Obra sólida", vibe: "Contundente y técnica",
+    desc: "Cifras grandes, bloques firmes y color de obra. Transmite que lo tuyo es serio y dura.",
+    words: "Robusta, directa, fiable", sw: ["#1E2227", "#FFC21A", "#C9D1D9", "#FFFFFF"],
+    mock: '<div class="mk mk-c" aria-hidden="true">' +
+      '<i class="stripe"></i>' +
+      '<div class="mk-bar"><span>Aquareforma</span><span class="mk-menu"><i></i><i></i><i></i></span></div>' +
+      '<div class="mk-c-h">Reformas<br>que duran</div>' +
+      '<div class="mk-c-st"><div><b>+15</b><span>Años</span></div><div><b>+200</b><span>Obras</span></div><div><b>2</b><span>Años de garantía</span></div></div>' +
+      '<div class="mk-c-cta">Pedir presupuesto</div></div>'
+  },
+  {
+    k: "D", name: "Antes y después", vibe: "Tu trabajo como protagonista",
+    desc: "Diseño limpio donde mandan las fotos, con deslizador de antes y después y rejilla de obras.",
+    words: "Limpia, visual, honesta", sw: ["#FFFFFF", "#14202E", "#A39A8F", "#12B3D6"],
+    mock: '<div class="mk mk-d" aria-hidden="true">' +
+      '<div class="mk-bar"><span>Aquareforma</span><span class="mk-d-nav">Obras · Servicios · Contacto</span></div>' +
+      '<div class="mk-d-ba"><div class="a"><em>ANTES</em></div><div class="b"><em>DESPUÉS</em></div><i class="mk-d-hd"></i></div>' +
+      '<div class="mk-d-cap">Baño completo, Torremolinos</div>' +
+      '<div class="mk-d-th"><i></i><i></i><i></i><i></i></div></div>'
+  }
+];
+
+const TONES = [
+  { k: "formal", l: "Formal", r: "Cercano" },
+  { k: "tecnico", l: "Sencillo", r: "Técnico" },
+  { k: "precio", l: "Económico", r: "Premium" },
+  { k: "humor", l: "Serio", r: "Divertido" }
+];
+
+/* ================================================================
+   HOJAS Y PREGUNTAS
+   t: text | tel | email | url | number | area | choice | chips | services | projects | proposals | tone | multi | note | tips
+   core: se muestra en la versión esencial
+   w: peso para el nivel de agua
+   ================================================================ */
+const SHEETS = [
+  /* ---------- 1 ---------- */
+  {
+    n: 1, tag: "Cimientos", title: "Tu empresa",
+    lead: "Empiezo por lo básico. Con esto preparo los datos de contacto, la página Sobre nosotros y el pie de la web. Lo que no sepas, lo saltas.",
+    fields: [
+      { id: "nombre", t: "text", core: 1, def: "Aquareforma", label: "Nombre de la empresa", why: "Logo y título de la web", ac: "organization" },
+      { id: "descriptor", t: "text", def: "Reformas y Piscinas", label: "Lo que va debajo del nombre", help: "Así sale en tu tarjeta. Cámbialo si quieres." },
+      { id: "responsable", t: "text", core: 1, def: "Diego Wilson", label: "Tu nombre", ac: "name" },
+      { id: "tel", t: "tel", core: 1, def: "+34 698 930 488", label: "Teléfono que quieres en la web", help: "Lo he copiado de tu tarjeta. Cámbialo si prefieres otro.", ac: "tel", im: "tel" },
+      { id: "wa", t: "choice", core: 1, cols: 1, label: "¿Contestas por WhatsApp en ese número?", opts: ["Sí, en ese mismo", "No, tengo otro para WhatsApp"] },
+      { id: "wa_otro", t: "tel", label: "Número de WhatsApp", im: "tel", show: a => String(a.wa || "").indexOf("No") === 0 },
+      { id: "email", t: "email", core: 1, def: "dwvg2025@hotmail.com", label: "Email", help: "Para el cliente que pide presupuesto en serio queda mejor un correo con el nombre de la empresa. Si no lo tienes, lo vemos.", ac: "email", im: "email" },
+      { id: "horario", t: "text", core: 1, label: "Horario de atención", ph: "Ej.: lunes a viernes de 8 a 18 h" },
+      { id: "direccion", t: "text", label: "Dirección o zona donde tienes la base", ph: "Ej.: Málaga capital" },
+      { id: "dir_visible", t: "choice", cols: 1, label: "¿Qué quieres que se vea en la web?", opts: ["La dirección completa", "Solo la zona", "Ninguna dirección"] },
+      { id: "anio_oficio", t: "number", core: 1, label: "¿En qué año empezaste a trabajar en obra?", ph: "Ej.: 2004", min: 1960, im: "numeric", why: "Los años de experiencia, en grande" },
+      { id: "anio_empresa", t: "number", label: "¿En qué año empezó Aquareforma?", ph: "Ej.: 2025", min: 1960, im: "numeric" },
+      { id: "anos", t: "note", core: 1, text: a => { const y = parseInt(a.anio_oficio, 10), now = new Date().getFullYear(); return (y >= 1960 && y <= now) ? "Son unos " + (now - y) + " años de oficio. Los usaré como cifra grande en la portada." : ""; } },
+      { id: "forma", t: "choice", cols: 1, label: "¿Cómo trabajas?", help: "Solo para el aviso legal de la web. Los datos fiscales te los pido aparte, aquí no los pongas.", opts: ["Autónomo", "Sociedad (SL)", "Otra forma", "Lo hablamos luego"] },
+      { id: "equipo_n", t: "choice", core: 1, cols: 1, label: "¿Cuántas personas sois?", opts: ["Solo yo", "2 o 3", "De 4 a 8", "Más de 8"] },
+      { id: "equipo", t: "area", label: "Quién forma el equipo y qué hace cada uno", ph: "Ej.: Mi hermano lleva la electricidad. Antonio y Juan son oficiales de piscinas.", why: "Página Equipo" },
+      { id: "colabora", t: "chips", label: "¿Con qué oficios colaboras?", opts: ["Electricistas", "Fontaneros", "Carpintería de madera", "Carpintería de aluminio", "Cerrajería", "Jardinería y riego", "Climatización", "Arquitecto o aparejador", "Gestoría y licencias", "Cristalería y mamparas", "Cocinas y muebles a medida", "Lo hacemos todo nosotros"] },
+      { id: "idiomas", t: "chips", core: 1, label: "¿En qué idiomas atiendes?", help: "En la Costa del Sol hay muchos clientes extranjeros. Si hablas inglés, la web debería tenerlo.", opts: ["Español", "Inglés", "Alemán", "Francés", "Neerlandés", "Ruso", "Idiomas nórdicos", "Árabe"] },
+      { id: "historia", t: "area", core: 1, rows: 5, label: "¿Cómo empezó todo? ¿Por qué reformas y piscinas?", ph: "Cuéntalo como se lo contarías a un cliente en una terraza.", why: "Texto de Sobre nosotros" },
+      { id: "razones", t: "area", core: 1, rows: 5, label: "Tres razones por las que un cliente debería elegirte", ph: "1. …\n2. …\n3. …", why: "Los tres bloques grandes de la portada" },
+      { id: "promesa", t: "text", label: "Tu promesa al cliente en una frase", ph: "Ej.: Tu reforma terminada en fecha y sin sorpresas en el presupuesto.", why: "Frase bajo el titular" }
+    ]
+  },
+  /* ---------- 2 ---------- */
+  {
+    n: 2, tag: "Estructura", title: "Lo que sabes hacer",
+    lead: "En tu tarjeta salen ocho servicios. Dime cuáles quieres destacar y qué incluye cada uno, para que la web explique todo lo que haces.",
+    fields: [
+      { id: "servicios", t: "services", core: 1, w: 3, label: "Tus servicios", help: "Abre cada uno y marca lo que haces. Si no haces un servicio, apaga el interruptor.", why: "Menú de servicios y una página por cada uno" },
+      { id: "extras", t: "chips", label: "¿Haces algo más que no sale en la tarjeta?", opts: ["Carpintería de aluminio", "Puertas y carpintería de madera", "Suelos (tarima, parquet, porcelánico)", "Microcemento", "Aire acondicionado", "Aerotermia y placas solares", "Cerramientos y barandillas", "Pérgolas y porches", "Césped artificial", "Jardinería y riego", "Barbacoas y cocinas de exterior", "Toldos", "Domótica", "Cerrajería", "Limpieza final de obra", "Licencias y proyectos", "Decoración e interiorismo", "Reforma de locales", "Baños adaptados para mayores"] },
+      { id: "especialidad", t: "choice", core: 1, label: "Si solo pudieras hacer una cosa, ¿cuál sería?", opts: SERV.map(s => s.name).concat(["Todo por igual"]), why: "Qué va primero en la portada" },
+      { id: "nohaces", t: "area", rows: 3, label: "Trabajos que no quieres que te pidan", ph: "Ej.: arreglos muy pequeños, obras fuera de la provincia…", why: "Evitar presupuestos que no te interesan" },
+      { id: "tamano", t: "chips", label: "¿Qué tamaño de obra aceptas?", opts: ["Arreglos pequeños", "Reformas medianas (un baño, una cocina)", "Reformas grandes (vivienda completa)", "Obra nueva", "Comunidades de propietarios", "Hoteles y negocios", "Constructoras y promotores"] },
+      { id: "clientes", t: "chips", core: 1, label: "¿Quiénes son tus clientes?", opts: ["Particulares de la zona", "Extranjeros residentes", "Segundas residencias", "Inmobiliarias y agencias", "Comunidades de propietarios", "Hoteles y apartamentos turísticos", "Empresas y locales", "Arquitectos y constructoras"], why: "A quién le hablan los textos" },
+      { id: "zona", t: "chips", core: 1, label: "¿En qué zonas trabajas?", help: "Cada pueblo que marques puede tener su propia página para salir en Google. Por ejemplo, reformas en Mijas o piscinas en Marbella.", opts: ["Málaga capital", "Torremolinos", "Benalmádena", "Fuengirola", "Mijas", "Marbella", "Estepona", "Manilva", "Casares", "Benahavís", "Rincón de la Victoria", "Vélez-Málaga y Torre del Mar", "Nerja", "Torrox", "Alhaurín de la Torre", "Alhaurín el Grande", "Coín", "Cártama", "Pizarra", "Álora", "Antequera", "Ronda", "Toda la provincia de Málaga"], why: "Páginas por localidad y mapa de zona" },
+      { id: "zona_fuera", t: "choice", cols: 1, label: "¿Te desplazas fuera de Málaga?", opts: ["No", "Sí, a provincias cercanas", "Sí, a toda Andalucía", "Depende de la obra"] },
+      { id: "urgencias", t: "choice", label: "¿Atiendes urgencias?", help: "Fugas, averías de depuradora, cortes de luz.", opts: ["No", "Sí, en horario de trabajo", "Sí, también fuera de horario"] },
+      { id: "mant_abono", t: "choice", cols: 1, label: "¿Ofreces mantenimiento de piscinas por abono?", opts: ["No", "Sí, mensual", "Sí, por temporada", "Lo estoy pensando"] },
+      { id: "mant_detalle", t: "area", rows: 3, label: "¿Qué incluye y cada cuánto vas?", ph: "Ej.: visita semanal, análisis del agua, limpieza de fondo y filtro.", show: a => String(a.mant_abono || "").indexOf("Sí") === 0 },
+      { id: "tipos_piscina", t: "chips", label: "¿Qué tipos de piscina construyes o reparas?", opts: ["Hormigón proyectado", "De obra con bloque", "Prefabricada de poliéster", "Con liner", "Desbordante", "Infinity", "Climatizada", "Con spa o jacuzzi", "Con cascada o fuentes", "Con playa o solárium", "De sal", "Con cubierta o cerramiento", "Natural"] }
+    ]
+  },
+  /* ---------- 3 ---------- */
+  {
+    n: 3, tag: "Obra hecha", title: "Tu experiencia",
+    lead: "Esta es la hoja que más vende. Cuenta de tres a ocho obras de las que te sientas orgulloso. Las fotos me las mandas por WhatsApp. Aquí me cuentas la historia de cada obra y su código.",
+    fields: [
+      { id: "n_obras", t: "choice", core: 1, cols: 1, label: "Más o menos, ¿cuántas obras has hecho?", opts: ["Menos de 25", "De 25 a 50", "De 50 a 100", "De 100 a 250", "Más de 250"], why: "Cifra grande de la portada" },
+      { id: "n_piscinas", t: "choice", cols: 1, label: "¿Y cuántas piscinas?", opts: ["Todavía ninguna", "De 1 a 5", "De 6 a 15", "De 16 a 40", "Más de 40"] },
+      { id: "proyectos", t: "projects", core: 1, w: 4, label: "Tus obras", help: "Empieza por la que más orgullo te da. Puedes añadir hasta diez.", why: "Galería de obras y casos de éxito" },
+      { id: "dificil", t: "area", rows: 4, label: "La obra más complicada que has resuelto", ph: "Qué pasó, qué había que arreglar y cómo lo conseguiste.", why: "Historia destacada" },
+      { id: "google", t: "text", label: "¿Tienes ficha de Google? Pega el enlace o el nombre", ph: "Es la que sale al buscar tu empresa en Google Maps" },
+      { id: "google_n", t: "choice", cols: 1, label: "¿Cuántas reseñas tienes?", opts: ["No tengo ficha", "Menos de 10", "De 10 a 30", "Más de 30"] },
+      { id: "plataformas", t: "chips", label: "¿Estás en alguna de estas?", opts: ["Habitissimo", "Cronoshare", "Houzz", "Milanuncios", "Páginas Amarillas", "Instagram", "Facebook", "Ninguna"] },
+      { id: "opiniones", t: "area", rows: 4, label: "Opiniones de clientes", help: "Si alguien te mandó un mensaje bonito por WhatsApp, cópialo tal cual.", ph: "Copia aquí lo que te hayan escrito, con el nombre o la zona si puedes.", why: "Sección de opiniones" },
+      { id: "formacion", t: "chips", label: "Formación, carnets y certificados", opts: ["Instalador autorizado de electricidad", "Instalador autorizado de fontanería", "Instalador de gas", "Tarjeta Profesional de la Construcción", "Prevención de riesgos laborales", "Trabajos en altura", "Mantenimiento y tratamiento del agua de piscinas", "Cursos de fabricantes de piscinas", "Formación profesional o grado", "Socorrismo"], why: "Sellos de confianza" },
+      { id: "marcas", t: "area", rows: 3, label: "Marcas y proveedores con los que trabajas", ph: "Ej.: depuradoras, azulejos, grifería, pinturas." },
+      { id: "medios", t: "chips", label: "Medios propios", opts: ["Furgonetas rotuladas", "Maquinaria propia", "Andamios", "Almacén o taller", "Herramienta profesional", "Uniformes con logo"] }
+    ]
+  },
+  /* ---------- 4 ---------- */
+  {
+    n: 4, tag: "Método", title: "Cómo trabajas",
+    lead: "Un cliente quiere saber qué pasa desde que te llama hasta que terminas. Si lo cuentas claro, te llaman más y regatean menos.",
+    fields: [
+      { id: "pasos", t: "chips", core: 1, label: "Pasos que sigues siempre", opts: ["Visita y medición sin compromiso", "Presupuesto detallado por escrito", "Diseño o planos en 3D", "Gestión de licencias y permisos", "Contrato o presupuesto firmado", "Calendario de obra con fechas", "Compra y entrega de materiales", "Un responsable de obra fijo", "Fotos de seguimiento al cliente", "Limpieza final", "Revisión final con el cliente", "Garantía por escrito", "Servicio posventa"], why: "Sección Cómo trabajamos" },
+      { id: "pasos_txt", t: "area", rows: 4, label: "Cuéntalo con tus palabras, desde la primera llamada hasta la entrega", ph: "Ej.: voy a ver la obra, en dos días paso el presupuesto por escrito…" },
+      { id: "presupuesto", t: "choice", core: 1, label: "¿El presupuesto es gratis?", opts: ["Sí, gratis y sin compromiso", "Gratis si hacemos la obra", "Se descuenta de la obra", "Depende del trabajo"] },
+      { id: "plazo_presu", t: "choice", cols: 1, label: "¿En cuánto tiempo das el presupuesto?", opts: ["El mismo día", "En 24 o 48 horas", "En una semana", "Depende"] },
+      { id: "precios_web", t: "choice", core: 1, label: "¿Quieres enseñar precios en la web?", help: "Un rango orientativo sería, por ejemplo, el precio de un baño completo entre dos cifras.", opts: ["No, que me llamen", "Solo precios desde", "Rangos orientativos", "Una calculadora de presupuesto"], why: "Decide si hay tarifas o calculadora" },
+      { id: "pago", t: "chips", label: "Formas de pago", opts: ["Transferencia", "Efectivo", "Tarjeta", "Bizum", "Pago por fases de obra", "Financiación en cuotas"] },
+      { id: "garantia", t: "text", label: "Garantía que ofreces", ph: "Ej.: 2 años en reformas, 5 años en impermeabilización" },
+      { id: "papeles", t: "chips", label: "Papeles en regla", opts: ["Alta de autónomo o empresa", "Seguro de responsabilidad civil", "Prevención de riesgos laborales", "Boletines y certificados oficiales", "Factura con IVA", "Contrato por escrito"], why: "Sellos de confianza en la portada" },
+      { id: "plazos", t: "area", rows: 3, label: "Cuánto tardas normalmente", ph: "Ej.: baño de 1 a 2 semanas, cocina de 2 a 3, piscina de 6 a 10.", why: "Preguntas frecuentes" },
+      { id: "contacto_pref", t: "chips", core: 1, label: "¿Cómo prefieres que te contacten?", opts: ["Llamada", "WhatsApp", "Formulario de la web", "Email", "Visita a pie de obra"], why: "Botones principales de la web" },
+      { id: "respuesta", t: "choice", cols: 1, label: "¿En cuánto tiempo contestas?", opts: ["En el momento", "En unas horas", "Al día siguiente"] },
+      { id: "faq", t: "area", core: 1, rows: 5, label: "Las cinco preguntas que más te hacen los clientes", ph: "Ej.: ¿Cuánto cuesta una piscina? ¿Cuánto tardáis? ¿Dais garantía?", why: "Preguntas frecuentes y artículos para Google" },
+      { id: "mejor", t: "area", rows: 3, label: "¿Qué hacen mal otros del sector que tú haces bien?", ph: "Ej.: dejar la obra sucia, no avisar de los retrasos…", why: "Textos que te diferencian" }
+    ]
+  },
+  /* ---------- 5 ---------- */
+  {
+    n: 5, tag: "Acabados", title: "Imagen y estilo",
+    lead: "Aquí empieza lo divertido. No hace falta que sepas de diseño. Elige lo que te entre por los ojos.",
+    fields: [
+      { id: "logo", t: "choice", core: 1, label: "Sobre tu logo, la gota con la casa y las olas", opts: ["Lo dejamos tal cual", "Retocarlo un poco", "Hacer uno nuevo", "No lo tengo claro, propón tú"] },
+      { id: "logo_archivo", t: "choice", cols: 1, label: "¿Tienes el archivo original del logo?", opts: ["Sí, te lo mando", "No, solo lo tengo impreso", "No sé"] },
+      { id: "colores", t: "choice", core: 1, label: "Colores", help: "Elige la familia que más te guste. Luego afino los tonos.", opts: [
+        { v: "Los de mi tarjeta", s: "Azul marino, azul agua y blanco", sw: ["#12306B", "#2F7FC1", "#6CC4EE", "#FFFFFF"] },
+        { v: "Mediterráneo", s: "Turquesa, arena y blanco roto", sw: ["#12B3D6", "#F4EBDA", "#0B5E73", "#FFFFFF"] },
+        { v: "Lujo sereno", s: "Antracita, champán y blanco", sw: ["#1C1F24", "#C8B28A", "#EDE7DC", "#FFFFFF"] },
+        { v: "Obra", s: "Gris carbón y amarillo seguridad", sw: ["#1E2227", "#FFC21A", "#C9D1D9", "#FFFFFF"] },
+        { v: "Natural", s: "Verde oliva, azul y madera", sw: ["#5E6B3A", "#2F6F8F", "#B98B5A", "#F4F1EA"] },
+        { v: "Sorpréndeme", s: "Lo decido contigo cuando vea las propuestas" }
+      ] },
+      { id: "colores_no", t: "text", label: "Colores que no quieres", ph: "Ej.: nada de rojo" },
+      { id: "prop", t: "proposals", core: 1, w: 3, label: "Cuatro direcciones para tu web", help: "Mira las cuatro y dime qué te parece cada una. Son ejemplos de estilo, no tu web final. Con tu elección preparo las propuestas completas.", why: "Las propuestas que te enseñaré" },
+      { id: "tono", t: "tone", core: 1, w: 1, label: "¿Cómo quieres que suene tu web?", help: "Mueve cada barra hacia el lado que más se parezca a ti.", why: "Tono de todos los textos" },
+      { id: "palabras", t: "chips", core: 1, max: 5, label: "Elige hasta cinco palabras que te definan", opts: ["Confianza", "Rapidez", "Calidad", "Limpieza", "Precio justo", "Cercanía", "Profesionalidad", "Garantía", "Puntualidad", "Diseño", "Innovación", "Experiencia", "Sin sorpresas", "Transparencia", "Lujo", "Familiar", "Local", "Compromiso"] },
+      { id: "refs_si", t: "area", rows: 4, label: "Webs, cuentas de Instagram o anuncios que te gusten", ph: "Pega enlaces y di qué te gusta de cada uno. Vale cualquier sector.", why: "Referencias para el diseño" },
+      { id: "refs_no", t: "area", rows: 3, label: "Y de las que no te gustan, ¿qué te sobra?", ph: "Ej.: demasiado texto, colores apagados…" },
+      { id: "salir", t: "choice", cols: 1, label: "¿Quieres salir tú o el equipo en la web?", opts: ["Sí, fotos y vídeo", "Solo fotos", "Mejor no salir", "No lo sé"] },
+      { id: "rotulacion", t: "chips", label: "¿Tienes ya alguna de estas cosas con tu marca?", help: "Si quieres, el estilo de la web puede extenderse a todo esto.", opts: ["Ropa de trabajo con logo", "Furgoneta rotulada", "Tarjetas de visita", "Carteles de obra", "Nada de momento"] }
+    ]
+  },
+  /* ---------- 6 ---------- */
+  {
+    n: 6, tag: "Taller de ideas", title: "Tu lado creativo",
+    lead: "Sin filtro. Aquí no hay respuestas malas. Lo que se te ocurra, lo apuntas. Yo lo ordeno y lo convierto en diseño.",
+    fields: [
+      { id: "i_5s", t: "area", core: 1, rows: 3, label: "Un cliente entra en tu web. En cinco segundos, ¿qué quieres que piense?", ph: "Ej.: este hombre sabe lo que hace y me da confianza.", why: "Titular y primera pantalla" },
+      { id: "i_piscina", t: "choice", core: 1, label: "Si Aquareforma fuera una piscina, ¿cuál sería?", opts: [
+        { v: "La infinity con vistas al mar", s: "Lujo y diseño" },
+        { v: "La familiar de toda la vida", s: "Cercana y fiable" },
+        { v: "El spa privado", s: "Calma y detalle" },
+        { v: "La piscina natural del pueblo", s: "Sencilla y honesta" }
+      ], why: "Personalidad de la marca" },
+      { id: "i_frases", t: "area", core: 1, rows: 4, label: "Escribe tres frases para la portada, aunque suenen locas", ph: "Ej.: Del primer ladrillo al primer chapuzón.\nTu casa, sin sorpresas.", why: "Eslogan y titulares" },
+      { id: "i_dicen", t: "area", core: 1, rows: 3, label: "¿Qué quieres que digan de ti cuando no estás delante?" },
+      { id: "i_feliz", t: "area", rows: 4, label: "Cuéntame el día que un cliente quedó más contento. ¿Qué pasó?", why: "Historia para la web y las redes" },
+      { id: "i_nunca", t: "area", rows: 3, label: "Cosas que no harías nunca en una obra", ph: "Ej.: dejar la obra sucia, desaparecer sin avisar.", why: "Los valores de la empresa" },
+      { id: "i_regalo", t: "area", rows: 3, label: "Si pudieras regalar algo a quien te pide presupuesto, ¿qué sería?", ph: "Ej.: una revisión gratuita de su piscina, una guía de mantenimiento.", why: "Gancho para conseguir contactos" },
+      { id: "i_servicio", t: "area", rows: 3, label: "Un servicio que nadie ofrece por aquí y tú podrías ofrecer" },
+      { id: "i_wow", t: "area", rows: 3, label: "Si la web no tuviera límite de presupuesto, ¿qué pondrías?", ph: "Ej.: un recorrido en 3D de la piscina, vídeos con dron, un simulador de presupuesto." },
+      { id: "i_contenidos", t: "chips", label: "Contenidos que podrías enseñar, aunque aún no los tengas", opts: ["Vídeos de obras en directo", "Antes y después", "Vídeos con dron", "Consejos de mantenimiento de piscinas", "Presentación del equipo", "Obra paso a paso en time-lapse", "Opiniones de clientes en vídeo", "Reels y TikTok cortos", "Preguntas de clientes respondidas"] },
+      { id: "i_admiras", t: "area", rows: 3, label: "Una empresa que admires, del sector o de otro, y por qué" },
+      { id: "i_lema", t: "text", label: "Una frase que repites siempre en la obra o a tus clientes" },
+      { id: "i_libre", t: "area", rows: 3, label: "Lo más atrevido o diferente que se te ocurra para tu web" }
+    ]
+  },
+  /* ---------- 7 ---------- */
+  {
+    n: 7, tag: "Instalaciones", title: "Funciones de la web",
+    lead: "Ahora lo práctico. Para qué quieres la web y qué tiene que incluir.",
+    fields: [
+      { id: "objetivo", t: "chips", core: 1, max: 3, label: "¿Qué quieres conseguir con la web? Elige hasta tres", opts: ["Que me llamen o escriban por WhatsApp", "Que pidan presupuesto desde la web", "Enseñar mis obras", "Salir en Google en mi zona", "Dar confianza a quien ya me conoce", "Captar clientes extranjeros", "Vender mantenimientos de piscina por abono", "Captar obras grandes"], why: "Lo que la web pone primero" },
+      { id: "secciones", t: "chips", core: 1, label: "Páginas que quieres tener", opts: ["Inicio", "Servicios, una página por cada uno", "Obras y galería", "Antes y después", "Sobre nosotros y equipo", "Opiniones de clientes", "Zonas donde trabajo", "Presupuesto online", "Contacto", "Preguntas frecuentes", "Blog con consejos", "Planes de mantenimiento de piscinas", "Trabaja con nosotros"], why: "Mapa de la web" },
+      { id: "legal", t: "note", core: 1, text: () => "El aviso legal, la política de privacidad y las cookies las incluyo siempre. Son obligatorios en España." },
+      { id: "funciones", t: "chips", label: "Funciones especiales", help: "Elige las que te llamen la atención. Puedo proponerte más.", opts: ["Botón de WhatsApp siempre visible", "Formulario de presupuesto en tres pasos", "Calculadora de presupuesto orientativo", "Simulador de piscina", "Deslizador de antes y después", "Mapa de obras realizadas", "Reserva de visita con calendario", "Galería con filtros por tipo de obra", "Vídeo de fondo en la portada", "Reseñas de Google en la web", "Contador de obras terminadas", "Guía descargable gratis", "Área de cliente para seguir la obra", "Chat con respuestas automáticas"] },
+      { id: "idiomas_web", t: "chips", core: 1, label: "Idiomas de la web", opts: ["Español", "Inglés", "Alemán", "Francés", "Neerlandés", "Ruso"] },
+      { id: "dominio", t: "choice", cols: 1, label: "¿Tienes dominio?", help: "El dominio es la dirección de la web, por ejemplo nombre.es.", opts: ["Sí, ya lo tengo", "No, hay que comprarlo", "No sé qué es"] },
+      { id: "dominio_txt", t: "text", label: "¿Cuál es, o cuál te gustaría?", ph: "Ej.: aquareforma.es" },
+      { id: "web_actual", t: "text", label: "¿Tienes alguna web actual? Pega el enlace", ph: "https://" },
+      { id: "redes", t: "multi", label: "Tus redes", help: "Usuario o enlace. Deja en blanco las que no tengas.", parts: [
+        { k: "instagram", label: "Instagram", ph: "@usuario" },
+        { k: "facebook", label: "Facebook", ph: "Nombre de la página" },
+        { k: "tiktok", label: "TikTok", ph: "@usuario" },
+        { k: "youtube", label: "YouTube", ph: "Nombre del canal" }
+      ] },
+      { id: "competencia", t: "area", rows: 4, label: "Tus tres competidores más fuertes y qué hacen mejor y peor que tú", ph: "Nombre o web de cada uno." },
+      { id: "buscas", t: "area", rows: 3, label: "Búsquedas de Google en las que te gustaría salir", help: "Si no lo sabes, déjalo en blanco. Lo investigo yo.", ph: "Ej.: reformas en Málaga, construcción de piscinas en la Costa del Sol." },
+      { id: "plazo_web", t: "choice", cols: 1, label: "¿Para cuándo la quieres?", opts: ["Cuanto antes", "En uno o dos meses", "Antes de la temporada de piscinas", "Sin prisa"] },
+      { id: "quien_act", t: "choice", cols: 1, label: "¿Quién va a actualizar la web?", opts: ["Yo, solo cosas sencillas", "Que se encargue quien la crea", "No lo he pensado"] }
+    ]
+  },
+  /* ---------- 8 ---------- */
+  {
+    n: 8, tag: "Entrega", title: "Fotos y cierre",
+    lead: "Última hoja. Las fotos y los vídeos son lo que más cambia el resultado. Con buen material, la web parece de otra liga.",
+    fields: [
+      { id: "fotos_estado", t: "choice", core: 1, label: "¿Cómo andas de fotos y vídeos de tus obras?", opts: ["Tengo muchas y buenas", "Tengo algunas en el móvil", "Tengo pocas y no muy buenas", "Casi ninguna, habrá que hacerlas"] },
+      { id: "tips_fotos", t: "tips", title: "Cómo sacar buenas fotos de obra", items: ["Con el móvil en horizontal.", "Con luz de día y sin el sol de frente.", "Antes y después desde el mismo sitio y con el mismo ángulo.", "Con la obra recogida y limpia.", "Una foto general y dos de detalle de cada trabajo.", "Un vídeo corto de unos 15 segundos vale oro.", "Sin caras de clientes ni matrículas, salvo permiso."] },
+      { id: "fotos_via", t: "choice", label: "¿Cómo me las mandas?", opts: ["Por WhatsApp, es lo más fácil", "Enlace de Google Fotos o Drive", "Te las doy en mano o en USB", "Hay que ir a hacerlas"] },
+      { id: "fotos_enlace", t: "text", label: "Enlace de las fotos, si ya lo tienes", ph: "https://", show: a => String(a.fotos_via || "").indexOf("Enlace") === 0 },
+      { id: "ir_obra", t: "choice", cols: 1, label: "Si hace falta, ¿puedo ir a hacer fotos o vídeo a alguna obra tuya?", opts: ["Sí", "Quizá, lo hablamos", "No"] },
+      { id: "llamar", t: "chips", other: false, label: "¿Cuándo te viene bien que te llame para repasarlo?", opts: ["Por la mañana", "Por la tarde", "Por la noche", "Fin de semana"] },
+      { id: "llamar_txt", t: "text", label: "Día y hora concretos, si los tienes" },
+      { id: "notas", t: "area", rows: 4, label: "Algo que se me haya olvidado preguntar" }
+    ]
+  }
+];
+
+(function () {
+'use strict';
+
+/* ================================================================
+   UTILIDADES
+   ================================================================ */
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+let UID = 0;
+const uid = p => (p || 'u') + (++UID);
+const debounce = (fn, ms) => { let t; return function () { const a = arguments; clearTimeout(t); t = setTimeout(() => fn.apply(null, a), ms); }; };
+
+function append(el, c) {
+  if (c == null || c === false) return;
+  if (Array.isArray(c)) { c.forEach(x => append(el, x)); return; }
+  el.append(c.nodeType ? c : document.createTextNode(String(c)));
+}
+function h(tag, props) {
+  const el = document.createElement(tag);
+  if (props) {
+    for (const k in props) {
+      const v = props[k];
+      if (v === false || v == null) continue;
+      if (k === 'class') el.className = v;
+      else if (k === 'text') el.textContent = v;
+      else if (k === 'html') el.innerHTML = v;
+      else if (k === 'style' && typeof v === 'object') Object.assign(el.style, v);
+      else if (k.slice(0, 2) === 'on' && typeof v === 'function') el.addEventListener(k.slice(2), v);
+      else el.setAttribute(k, v === true ? '' : v);
+    }
+  }
+  for (let i = 2; i < arguments.length; i++) append(el, arguments[i]);
+  return el;
+}
+const ic = (name, cls) => h('span', { class: 'ic' + (cls ? ' ' + cls : ''), html: ICONS[name] || '', 'aria-hidden': 'true' });
+
+let toastTimer;
+function toast(msg) {
+  const t = $('#toast'); if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+/* ================================================================
+   ESTADO Y GUARDADO
+   ================================================================ */
+const S = { a: {}, sheet: 0, last: 1, mode: 'full', consent: false, sent: false, started: false, storageOk: true, savedAt: 0, prepared: false, copied: false, openSvc: 'alb', openProj: 0 };
+let DL = null;
+
+const snapshotState = () => ({ v: 1, a: S.a, sheet: S.sheet, last: S.last, mode: S.mode, consent: S.consent, sent: S.sent, started: S.started });
+function save() {
+  try { localStorage.setItem(CFG.storeKey, JSON.stringify(snapshotState())); S.storageOk = true; S.savedAt = Date.now(); }
+  catch (e) { S.storageOk = false; }
+  paintSave();
+}
+const saveSoon = debounce(save, 350);
+function loadLS() { try { const raw = localStorage.getItem(CFG.storeKey); return raw ? JSON.parse(raw) : null; } catch (e) { return null; } }
+function paintSave() {
+  const el = $('#top-save'); if (!el) return;
+  el.textContent = S.storageOk ? 'Guardado' : 'Sin guardar';
+}
+
+/* ================================================================
+   ÍNDICE DE CAMPOS, VISIBILIDAD Y PROGRESO
+   ================================================================ */
+const FIELDS = [], FMAP = {};
+SHEETS.forEach(sh => sh.fields.forEach(f => { f._sh = sh; FIELDS.push(f); FMAP[f.id] = f; }));
+const isQ = f => f.t !== 'note' && f.t !== 'tips';
+const val = f => (S.a[f.id] !== undefined ? S.a[f.id] : f.def);
+const visible = f => (S.mode === 'full' || !!f.core) && (!f.show || f.show(S.a));
+
+function score(f) {
+  if (!isQ(f)) return null;
+  const v = S.a[f.id];
+  switch (f.t) {
+    case 'services': {
+      if (!v) return 0;
+      const done = SERV.filter(s => v[s.id] && v[s.id].on && ((v[s.id].items && v[s.id].items.length) || v[s.id].peso || (v[s.id].extra && v[s.id].extra.trim()))).length;
+      return Math.min(1, done / 4);
+    }
+    case 'projects': {
+      const n = (v || []).filter(p => p.titulo && (p.reto || p.solucion || p.lugar || p.orgullo)).length;
+      return Math.min(1, n / 3);
+    }
+    case 'proposals': {
+      if (!v) return 0;
+      const r = PROPS.filter(p => v[p.k]).length;
+      return Math.min(1, (r / PROPS.length) * 0.85 + (v.fav ? 0.15 : 0));
+    }
+    case 'tone': return v ? Math.min(1, Object.keys(v).length / TONES.length) : 0;
+    case 'multi': return v ? Math.min(1, Object.keys(v).filter(k => String(v[k]).trim()).length / 2) : 0;
+    case 'chips': return Array.isArray(v) && v.length ? 1 : 0;
+    default: { const x = S.a[f.id]; return x !== undefined && x !== null && String(x).trim() ? 1 : 0; }
+  }
+}
+
+function progress() {
+  let got = 0, tot = 0;
+  const by = SHEETS.map(sh => ({ sh, n: 0, d: 0 }));
+  FIELDS.forEach(f => {
+    if (!isQ(f) || !visible(f)) return;
+    const w = f.w || 1, s = score(f), b = by[f._sh.n - 1];
+    tot += w; got += w * s; b.n += 1; if (s >= 0.999) b.d += 1;
+  });
+  return { pct: tot ? Math.round(100 * got / tot) : 0, by };
+}
+const depthText = pct => (pct * 1.6 / 100).toFixed(2).replace('.', ',');
+
+function paintGauge(pct) {
+  const tube = $('#tube i'); if (tube) tube.style.height = pct + '%';
+  const l2 = $('#top-l2'); if (l2) l2.textContent = 'Agua a ' + depthText(pct) + ' m de 1,60 m';
+  const pw = $('.pool-w'); if (pw) pw.style.height = pct + '%';
+  const pd = $('#pool-depth'); if (pd) pd.textContent = depthText(pct);
+  const pool = $('.pool'); if (pool) pool.classList.toggle('full', pct >= 100);
+}
+
+function refresh() {
+  const view = $('#view');
+  let n = 0;
+  $$('.q[data-id]', view).forEach(el => {
+    const f = FMAP[el.dataset.id];
+    if (!f) return;
+    if (!visible(f)) { el.hidden = true; return; }
+    if (f.t === 'note') {
+      const t = f.text(S.a); el.hidden = !t;
+      const p = $('p', el); if (p && p.textContent !== t) p.textContent = t;
+      return;
+    }
+    el.hidden = false;
+    if (f.t === 'tips') return;
+    const okb = $('.ok-btn', el); if (okb) okb.hidden = S.a[f.id] !== undefined;
+    n++;
+    const nb = $('.q-n', el); if (nb) nb.textContent = f._sh.n + '.' + n;
+    el.classList.toggle('done', (score(f) || 0) >= 0.999);
+  });
+  const p = progress();
+  paintGauge(p.pct);
+  const cnt = $('#sh-count');
+  if (cnt && S.sheet >= 1 && S.sheet <= SHEETS.length) { const b = p.by[S.sheet - 1]; cnt.textContent = b.d + ' de ' + b.n + ' contestadas'; }
+  return p;
+}
+const changed = () => { S.started = true; saveSoon(); refresh(); };
+
+/* ================================================================
+   CONTROLES
+   ================================================================ */
+function ctlInput(f, id) {
+  const el = h('input', { id, class: 'inp', type: f.t === 'number' ? 'number' : f.t, placeholder: f.ph || '', autocomplete: f.ac || 'off', inputmode: f.im, min: f.min, maxlength: f.t === 'number' ? null : 200 });
+  const v = val(f); el.value = v == null ? '' : v;
+  el.addEventListener('input', () => { S.a[f.id] = el.value; changed(); });
+  return el;
+}
+function growArea(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight + 2, 460) + 'px'; }
+function areaEl(opts, get, set) {
+  const el = h('textarea', { id: opts.id, class: 'area', placeholder: opts.ph || '', rows: opts.rows || 4 });
+  el.value = get() || '';
+  el.addEventListener('input', () => { set(el.value); growArea(el); });
+  requestAnimationFrame(() => growArea(el));
+  return el;
+}
+function ctlArea(f, id) {
+  return areaEl({ id, ph: f.ph, rows: f.rows }, () => val(f), v => { S.a[f.id] = v; changed(); });
+}
+function ctlChoice(f, labelId, get, set) {
+  const items = f.opts.map(o => (typeof o === 'string' ? { v: o } : o));
+  const wrap = h('div', { class: 'choice' + (f.cols ? ' cols' : ''), role: 'radiogroup', 'aria-labelledby': labelId });
+  const btns = items.map(o => {
+    const b = h('button', { type: 'button', class: 'opt', role: 'radio', 'aria-checked': 'false' },
+      h('span', { class: 'opt-mark' }),
+      h('span', { class: 'opt-text' }, o.l || o.v, o.s ? h('small', { text: o.s }) : null),
+      o.sw ? h('span', { class: 'swatches' }, o.sw.map(c => h('i', { style: { background: c } }))) : null);
+    b.addEventListener('click', () => { set(get() === o.v ? '' : o.v); sync(); });
+    return b;
+  });
+  function sync() { btns.forEach((b, i) => { const on = get() === items[i].v; b.classList.toggle('on', on); b.setAttribute('aria-checked', on ? 'true' : 'false'); }); }
+  wrap.append(...btns); sync();
+  return wrap;
+}
+function ctlChips(f, get, set) {
+  const wrap = h('div', { class: 'chips' });
+  let adding = false;
+  const cur = () => (Array.isArray(get()) ? get() : []);
+  function toggle(o) {
+    const c = cur().slice(), i = c.indexOf(o);
+    if (i >= 0) c.splice(i, 1);
+    else { if (f.max && c.length >= f.max) { toast('Puedes elegir hasta ' + f.max); return; } c.push(o); }
+    set(c); draw();
+  }
+  function draw() {
+    wrap.textContent = '';
+    const c = cur(), base = f.opts || [];
+    base.concat(c.filter(x => base.indexOf(x) < 0)).forEach(o => {
+      const on = c.indexOf(o) >= 0;
+      wrap.append(h('button', { type: 'button', class: 'chip' + (on ? ' on' : ''), 'aria-pressed': on ? 'true' : 'false', onclick: () => toggle(o) }, on ? ic('check') : null, o));
+    });
+    if (f.other === false) return;
+    if (adding) {
+      const inp = h('input', { class: 'chip-inp', type: 'text', placeholder: 'Escribe y pulsa Añadir', maxlength: 60, 'aria-label': 'Añadir otra opción' });
+      const add = () => { const v = inp.value.trim(); if (v && cur().indexOf(v) < 0) { if (f.max && cur().length >= f.max) { toast('Puedes elegir hasta ' + f.max); } else { set(cur().concat([v])); } } adding = false; draw(); };
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); add(); } else if (e.key === 'Escape') { adding = false; draw(); } });
+      wrap.append(h('span', { class: 'chip-add-row' }, inp, h('button', { type: 'button', class: 'chip on', onclick: add }, 'Añadir')));
+      setTimeout(() => inp.focus(), 0);
+    } else {
+      wrap.append(h('button', { type: 'button', class: 'chip chip-plus', onclick: () => { adding = true; draw(); } }, ic('plus'), 'Otro'));
+    }
+  }
+  draw();
+  return wrap;
+}
+const toneWord = (t, n) => ({ 1: 'muy ' + t.l.toLowerCase(), 2: 'algo ' + t.l.toLowerCase(), 3: 'punto medio', 4: 'algo ' + t.r.toLowerCase(), 5: 'muy ' + t.r.toLowerCase() }[n]);
+function ctlTone() {
+  const wrap = h('div', { class: 'tones' });
+  const d = () => (S.a.tono || (S.a.tono = {}));
+  TONES.forEach(t => {
+    const id = uid('tn'), cur = d()[t.k];
+    const read = h('span', { class: 'tone-read', text: cur ? toneWord(t, cur) : 'Sin elegir' });
+    const rng = h('input', { id, type: 'range', min: 1, max: 5, step: 1, class: 'rng' + (cur ? '' : ' untouched'), 'aria-label': t.l + ' o ' + t.r });
+    rng.value = cur || 3;
+    rng.addEventListener('input', () => { const n = +rng.value; d()[t.k] = n; rng.classList.remove('untouched'); read.textContent = toneWord(t, n); changed(); });
+    wrap.append(h('div', { class: 'tone' },
+      h('div', { class: 'tone-ends' }, h('span', { text: t.l }), h('span', { text: t.r })),
+      rng,
+      h('div', { class: 'tone-ticks', 'aria-hidden': 'true' }, [1, 2, 3, 4, 5].map(() => h('i'))),
+      read));
+  });
+  return wrap;
+}
+function ctlMulti(f) {
+  const wrap = h('div', { class: 'multi' });
+  const d = () => (S.a[f.id] || (S.a[f.id] = {}));
+  f.parts.forEach(p => {
+    const id = uid('m');
+    const inp = h('input', { id, class: 'inp', type: 'text', placeholder: p.ph || '', autocomplete: 'off', maxlength: 200 });
+    inp.value = d()[p.k] || '';
+    inp.addEventListener('input', () => { d()[p.k] = inp.value; changed(); });
+    wrap.append(h('div', null, h('label', { class: 'fl', for: id, text: p.label }), inp));
+  });
+  return wrap;
+}
+
+/* ---------- servicios ---------- */
+function ctlServices(f) {
+  const wrap = h('div', { class: 'svcs' });
+  const data = () => {
+    if (!S.a[f.id]) { const o = {}; SERV.forEach(s => { o[s.id] = { on: true, items: [], peso: '', extra: '' }; }); S.a[f.id] = o; }
+    return S.a[f.id];
+  };
+  const subText = st => (!st.on ? 'No lo hago' : (st.peso || 'Lo hago') + (st.items.length ? ' · ' + st.items.length + ' marcados' : ''));
+  function draw() {
+    wrap.textContent = '';
+    const d = data();
+    SERV.forEach(s => {
+      const st = d[s.id];
+      if (!st.items) st.items = [];
+      const open = st.on && S.openSvc === s.id;
+      const small = h('small', { text: subText(st) });
+      const sw = h('button', { type: 'button', class: 'sw', role: 'switch', 'aria-checked': st.on ? 'true' : 'false', 'aria-label': s.name + ': ' + (st.on ? 'lo hago' : 'no lo hago') });
+      sw.addEventListener('click', () => { st.on = !st.on; S.openSvc = st.on ? s.id : (S.openSvc === s.id ? '' : S.openSvc); changed(); draw(); });
+      const tog = h('button', { type: 'button', class: 'svc-tog', 'aria-expanded': open ? 'true' : 'false' },
+        h('span', { class: 'svc-ic' }, ic(s.ic)),
+        h('span', { class: 'svc-n' }, s.name, small),
+        st.on ? ic('chev', 'svc-chev') : null);
+      tog.addEventListener('click', () => { if (!st.on) { st.on = true; changed(); } S.openSvc = open ? '' : s.id; draw(); });
+      const card = h('div', { class: 'svc' + (st.on ? ' on' : '') + (open ? ' open' : '') }, h('div', { class: 'svc-h' }, tog, sw));
+      if (open) {
+        const body = h('div', { class: 'svc-b' });
+        body.append(h('div', { class: 'svc-q', text: '¿Qué incluye?' }));
+        body.append(ctlChips({ opts: s.items }, () => st.items, v => { st.items = v; small.textContent = subText(st); changed(); }));
+        body.append(h('div', { class: 'svc-q', text: '¿Cuánto trabajo te da?' }));
+        const peso = h('div', { class: 'peso', role: 'group', 'aria-label': 'Cuánto trabajo te da ' + s.name });
+        ['Poco', 'Normal', 'Mi fuerte'].forEach(p => {
+          const b = h('button', { type: 'button', 'aria-pressed': st.peso === p ? 'true' : 'false', text: p });
+          b.addEventListener('click', () => { st.peso = st.peso === p ? '' : p; $$('button', peso).forEach(x => x.setAttribute('aria-pressed', x.textContent === st.peso ? 'true' : 'false')); small.textContent = subText(st); changed(); });
+          peso.append(b);
+        });
+        body.append(peso);
+        const eid = uid('sx');
+        body.append(h('div', null, h('label', { class: 'fl', for: eid, text: 'Algo más que hagas aquí' }), (() => { const e = h('input', { id: eid, class: 'inp', type: 'text', placeholder: 'Escríbelo con tus palabras', maxlength: 200, autocomplete: 'off' }); e.value = st.extra || ''; e.addEventListener('input', () => { st.extra = e.value; changed(); }); return e; })()));
+        card.append(body);
+      }
+      wrap.append(card);
+    });
+  }
+  draw();
+  return wrap;
+}
+
+/* ---------- obras ---------- */
+const emptyProj = n => ({ n, titulo: '', tipo: '', lugar: '', anio: '', duracion: '', medidas: '', reto: '', solucion: '', detalles: '', orgullo: '', fotos: '', permiso: '', opinion: '', firma: '', estrella: false });
+const codeOf = (p, i) => 'OBRA-' + (p.n || (i + 1));
+function ctlProjects(f) {
+  const wrap = h('div', { class: 'projs' });
+  const list = () => (S.a[f.id] || (S.a[f.id] = [emptyProj(1)]));
+  const nextN = L => L.reduce((m, p) => Math.max(m, p.n || 0), 0) + 1;
+
+  function textField(p, key, label, o) {
+    const id = uid('pf');
+    const el = o.area
+      ? areaEl({ id, ph: o.ph, rows: o.rows || 3 }, () => p[key], v => { p[key] = v; if (o.onInput) o.onInput(v); changed(); })
+      : h('input', { id, class: 'inp', type: 'text', placeholder: o.ph || '', autocomplete: 'off', maxlength: 200, inputmode: o.im });
+    if (!o.area) { el.value = p[key] || ''; el.addEventListener('input', () => { p[key] = el.value; if (o.onInput) o.onInput(el.value); changed(); }); }
+    return h('div', null, h('label', { class: 'fl', for: id, text: label }), el);
+  }
+  function selField(p, key, label, opts) {
+    const id = uid('ps');
+    const el = h('select', { id, class: 'sel' }, h('option', { value: '', text: 'Elige una opción' }), opts.map(o => h('option', { value: o, text: o })));
+    el.value = p[key] || '';
+    el.addEventListener('change', () => { p[key] = el.value; changed(); });
+    return h('div', null, h('label', { class: 'fl', for: id, text: label }), el);
+  }
+  function card(p, i, L) {
+    const open = S.openProj === i, code = codeOf(p, i);
+    const title = h('span', { class: 'proj-t' + (p.titulo ? '' : ' empty'), text: p.titulo || 'Sin título todavía' });
+    const star = h('span', { class: 'proj-star', hidden: !p.estrella }, ic('star'));
+    const head = h('button', { type: 'button', class: 'proj-h', 'aria-expanded': open ? 'true' : 'false' }, h('span', { class: 'proj-code', text: code }), title, star, ic('chev', 'svc-chev'));
+    head.addEventListener('click', () => { S.openProj = open ? -1 : i; draw(); });
+    const el = h('div', { class: 'proj' + (open ? ' open' : '') }, head);
+    if (!open) return el;
+    const b = h('div', { class: 'proj-b' });
+    b.append(h('p', { class: 'code-hint' }, 'Al mandar por WhatsApp las fotos de esta obra, escribe ', h('b', { text: code }), ' en el primer mensaje.'));
+    b.append(textField(p, 'titulo', 'Nombre de la obra', { ph: 'Ej.: Piscina de 8×4 con spa en Mijas', onInput: v => { title.textContent = v || 'Sin título todavía'; title.classList.toggle('empty', !v); } }));
+    b.append(selField(p, 'tipo', 'Tipo de trabajo', SERV.map(s => s.name).concat(['Otro'])));
+    b.append(textField(p, 'lugar', 'Dónde', { ph: 'Municipio o barrio, sin dirección exacta' }));
+    b.append(h('div', { class: 'two' }, textField(p, 'anio', 'Año', { ph: '2025', im: 'numeric' }), textField(p, 'duracion', 'Cuánto duró', { ph: '6 semanas' })));
+    b.append(textField(p, 'medidas', 'Medidas o alcance', { ph: 'Ej.: piscina de 32 m² y solárium de 60 m²' }));
+    b.append(textField(p, 'reto', '¿Qué quería el cliente o qué problema había?', { area: true, ph: 'Ej.: humedades, un baño de los años 80, un patio sin uso…' }));
+    b.append(textField(p, 'solucion', '¿Qué hiciste?', { area: true, rows: 4 }));
+    b.append(textField(p, 'detalles', 'Materiales, marcas o detalles técnicos', { ph: 'Lo que quieras destacar' }));
+    b.append(textField(p, 'orgullo', 'Lo que más orgullo te da de esta obra', { area: true }));
+    b.append(selField(p, 'fotos', 'Fotos de esta obra', ['Tengo antes y después', 'Solo después', 'Solo durante la obra', 'No tengo fotos']));
+    b.append(selField(p, 'permiso', '¿Se puede enseñar en la web?', ['Sí, el cliente está de acuerdo', 'Hay que preguntarle', 'No, es solo para mí']));
+    b.append(textField(p, 'opinion', 'Si el cliente dijo algo bonito, ponlo tal cual', { area: true }));
+    b.append(textField(p, 'firma', 'Cómo firmamos esa opinión', { ph: 'Ej.: María, Mijas' }));
+    const starBtn = h('button', { type: 'button', class: 'star-btn', 'aria-pressed': p.estrella ? 'true' : 'false' }, ic('star'), 'Es mi obra estrella');
+    starBtn.addEventListener('click', () => { const on = !p.estrella; L.forEach(x => { x.estrella = false; }); p.estrella = on; changed(); draw(); });
+    let armed = false, armTimer;
+    const del = h('button', { type: 'button', class: 'del-btn' }, ic('trash'), 'Quitar esta obra');
+    del.addEventListener('click', () => {
+      if (!armed) { armed = true; del.lastChild.textContent = '¿Seguro? Pulsa otra vez'; clearTimeout(armTimer); armTimer = setTimeout(() => { armed = false; del.lastChild.textContent = 'Quitar esta obra'; }, 3500); return; }
+      if (L.length === 1) L[0] = emptyProj(L[0].n || 1); else L.splice(i, 1);
+      S.openProj = Math.max(0, Math.min(S.openProj, L.length - 1)); changed(); draw();
+    });
+    b.append(h('div', { class: 'proj-foot' }, starBtn, del));
+    el.append(b);
+    return el;
+  }
+  function draw() {
+    wrap.textContent = '';
+    const L = list();
+    if (S.openProj >= L.length) S.openProj = L.length - 1;
+    L.forEach((p, i) => wrap.append(card(p, i, L)));
+    if (L.length < 10) {
+      wrap.append(h('button', { type: 'button', class: 'add-btn', onclick: () => { L.push(emptyProj(nextN(L))); S.openProj = L.length - 1; changed(); draw(); } }, ic('plus'), 'Añadir otra obra'));
+    }
+  }
+  draw();
+  return wrap;
+}
+
+/* ---------- propuestas de estilo ---------- */
+function ctlProposals(f) {
+  const wrap = h('div', { class: 'props' });
+  const d = () => (S.a[f.id] || (S.a[f.id] = {}));
+  const R = [['amo', 'Me encanta'], ['quiza', 'Puede ser'], ['no', 'No es lo mío']];
+  const cards = PROPS.map(p => {
+    const card = h('article', { class: 'prop' });
+    const react = h('div', { class: 'react', role: 'group', 'aria-label': 'Qué te parece la propuesta ' + p.k });
+    R.forEach(r => {
+      const b = h('button', { type: 'button', 'data-r': r[0], 'aria-pressed': 'false', text: r[1] });
+      b.addEventListener('click', () => { d()[p.k] = d()[p.k] === r[0] ? '' : r[0]; changed(); sync(); });
+      react.append(b);
+    });
+    const fav = h('button', { type: 'button', class: 'star-btn', 'aria-pressed': 'false' }, ic('star'), 'Es mi favorita');
+    fav.addEventListener('click', () => { d().fav = d().fav === p.k ? '' : p.k; changed(); sync(); });
+    card.append(
+      h('div', { class: 'prop-mock', html: p.mock }, h('p', { class: 'mk-note', text: 'Ejemplo de estilo. Textos y cifras de muestra.' })),
+      h('div', { class: 'prop-b' },
+        h('div', { class: 'prop-t' }, h('span', { class: 'prop-k', text: p.k }), h('span', { class: 'prop-n', text: p.name }), h('span', { class: 'prop-fav-tag' }, ic('star'), 'Mi favorita')),
+        h('span', { class: 'prop-v', text: p.vibe }),
+        h('p', { class: 'prop-d', text: p.desc }),
+        h('div', { class: 'prop-sw' }, h('span', { class: 'swatches' }, p.sw.map(c => h('i', { style: { background: c } }))), h('span', { class: 'prop-words', text: p.words })),
+        react, fav));
+    return { p, card, react, fav };
+  });
+  function sync() {
+    const v = d();
+    cards.forEach(c => {
+      $$('button', c.react).forEach(b => b.setAttribute('aria-pressed', v[c.p.k] === b.dataset.r ? 'true' : 'false'));
+      c.fav.setAttribute('aria-pressed', v.fav === c.p.k ? 'true' : 'false');
+      c.card.classList.toggle('fav', v.fav === c.p.k);
+    });
+  }
+  wrap.append(...cards.map(c => c.card));
+  const nid = uid('pn');
+  wrap.append(h('div', { class: 'prop-sub' },
+    h('label', { class: 'fl', for: nid, text: 'Si pudieras mezclar, ¿qué cogerías de cada una? ¿Qué falta?' }),
+    areaEl({ id: nid, ph: 'Ej.: los colores de la A, la portada de la C y el deslizador de la D.', rows: 3 }, () => d().notas, v => { d().notas = v; changed(); })));
+  sync();
+  return wrap;
+}
+
+/* ================================================================
+   PREGUNTA (envoltorio)
+   ================================================================ */
+function renderField(f) {
+  if (f.t === 'note') return h('section', { class: 'q q-note', 'data-id': f.id }, h('p', { text: f.text(S.a) }));
+  if (f.t === 'tips') return h('section', { class: 'q q-tips', 'data-id': f.id }, h('h3', { text: f.title }), h('ul', null, f.items.map(t => h('li', { text: t }))));
+  const lid = uid('l'), cid = uid('c');
+  const single = ['text', 'tel', 'email', 'url', 'number', 'area'].indexOf(f.t) >= 0;
+  const label = single ? h('label', { class: 'q-l', id: lid, for: cid, text: f.label }) : h('div', { class: 'q-l', id: lid, text: f.label });
+  const top = h('div', { class: 'q-top' }, h('span', { class: 'q-n', 'aria-hidden': 'true' }), h('div', null, label, f.help ? h('p', { class: 'q-h', text: f.help }) : null));
+  const ctl = h('div', { class: 'q-c' });
+  const get = () => val(f), set = v => { S.a[f.id] = v; changed(); };
+  switch (f.t) {
+    case 'text': case 'tel': case 'email': case 'url': case 'number':
+      ctl.append(ctlInput(f, cid));
+      if (f.def !== undefined) {
+        const okb = h('button', { type: 'button', class: 'ok-btn' }, ic('check'), 'Está bien así');
+        okb.addEventListener('click', () => { S.a[f.id] = val(f); changed(); okb.hidden = true; });
+        okb.hidden = S.a[f.id] !== undefined;
+        ctl.append(okb);
+      }
+      break;
+    case 'area': ctl.append(ctlArea(f, cid)); break;
+    case 'choice': ctl.append(ctlChoice(f, lid, get, set)); break;
+    case 'chips': ctl.setAttribute('role', 'group'); ctl.setAttribute('aria-labelledby', lid); ctl.append(ctlChips(f, get, set)); break;
+    case 'services': ctl.append(ctlServices(f)); break;
+    case 'projects': ctl.append(ctlProjects(f)); break;
+    case 'proposals': ctl.append(ctlProposals(f)); break;
+    case 'tone': ctl.append(ctlTone()); break;
+    case 'multi': ctl.append(ctlMulti(f)); break;
+  }
+  return h('section', { class: 'q', 'data-id': f.id }, top, ctl, f.why ? h('p', { class: 'q-w' }, h('b', { text: 'USO · ' }), f.why) : null);
+}
+
+/* ================================================================
+   PANTALLAS
+   ================================================================ */
+const PLAN = '<svg class="plan" viewBox="0 0 380 250" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Plano en planta de una vivienda con piscina y cotas en metros">' +
+  '<defs><pattern id="ht" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v7" stroke-width="1" opacity=".55"/></pattern>' +
+  '<marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1l8 4-8 4z" fill="currentColor" stroke="none"/></marker></defs>' +
+  '<path d="M14 24h170v118H14zM22 32v102h154V32z" fill="url(#ht)" fill-rule="evenodd" stroke="none"/>' +
+  '<path d="M14 24h170v118H14zM22 32h154v102H22z"/><path d="M22 84h58M104 84h72M92 32v52M130 84v50"/><path d="M80 84a12 12 0 0 1 12-12" stroke-width="1"/>' +
+  '<path d="M184 56h42v86h-42" stroke-dasharray="4 4"/>' +
+  '<rect x="206" y="160" width="158" height="68" rx="3" fill="rgba(18,179,214,.3)"/>' +
+  '<path d="M206 214h22a10 10 0 0 0 0-20h-22"/>' +
+  '<path d="M246 178c10-6 20 6 30 0s20 6 30 0 20 6 30 0M246 196c10-6 20 6 30 0s20 6 30 0 20 6 30 0M246 214c10-6 20 6 30 0s20 6 30 0 20 6 30 0" stroke-width="1" opacity=".8"/>' +
+  '<path d="M206 242h158" marker-start="url(#ar)" marker-end="url(#ar)" stroke-width="1"/><path d="M206 234v14M364 234v14" stroke-width="1"/>' +
+  '<path d="M376 160v68" marker-start="url(#ar)" marker-end="url(#ar)" stroke-width="1"/>' +
+  '<text x="285" y="238" text-anchor="middle">8,00 m</text>' +
+  '<text transform="translate(371 194) rotate(-90)" text-anchor="middle">4,00 m</text>' +
+  '<text x="16" y="160">VIVIENDA</text><text x="208" y="152">PISCINA</text>' +
+  '<g transform="translate(334 52)"><circle r="15"/><path d="M0-11l5 17-5-4-5 4z" fill="currentColor"/><text y="-21" text-anchor="middle">N</text></g></svg>';
+
+function renderWelcome() {
+  const root = h('div', { class: 'sheet-in' });
+  const tb = h('dl', { class: 'tb' },
+    h('dt', { text: 'Proyecto' }), h('dd', { text: 'Web de ' + CFG.empresa }),
+    h('dt', { text: 'Promotor' }), h('dd', { text: CFG.cliente }),
+    h('dt', { text: 'Redacta' }), h('dd', { text: CFG.autor }),
+    h('dt', { text: 'Emitido' }), h('dd', { text: CFG.fecha }),
+    h('dt', { text: 'Hojas' }), h('dd', { text: SHEETS.length + ' y revisión' }));
+  const start = (mode, to) => { S.mode = mode; S.started = true; go(to); };
+  const cta = h('div', { class: 'cta-row' });
+  if (S.started) {
+    const cur = Math.max(1, Math.min(S.last || 1, 9));
+    cta.append(h('button', { type: 'button', class: 'btn btn-sun', onclick: () => go(cur) }, h('span', null, 'Seguir donde lo dejé', h('small', { text: 'Tus respuestas siguen guardadas en este móvil' })), ic('right')));
+    let armed = false, timer;
+    const reset = h('button', { type: 'button', class: 'btn btn-line' }, 'Empezar de cero');
+    reset.addEventListener('click', () => {
+      if (!armed) { armed = true; reset.textContent = 'Seguro. Pulsa otra vez para borrar todo'; clearTimeout(timer); timer = setTimeout(() => { armed = false; reset.textContent = 'Empezar de cero'; }, 4000); return; }
+      S.a = {}; S.started = false; S.consent = false; S.sent = false; S.mode = 'full'; S.openSvc = 'alb'; S.openProj = 0;
+      try { localStorage.removeItem(CFG.storeKey); } catch (e) { /* sin almacenamiento */ }
+      show(0);
+    });
+    cta.append(reset);
+  } else {
+    cta.append(
+      h('button', { type: 'button', class: 'btn btn-sun', onclick: () => start('full', 1) }, h('span', null, 'Empezar', h('small', { text: 'Completo: unos 30 minutos, en los ratos que quieras' })), ic('right')),
+      h('button', { type: 'button', class: 'btn btn-line', onclick: () => start('express', 1) }, h('span', null, 'Solo lo esencial', h('small', { text: 'Unos 10 minutos, puedes ampliar luego' })), ic('right')));
+  }
+  const hero = h('section', { class: 'hero' }, h('div', { class: 'hero-in' },
+    h('p', { class: 'mono hero-eyebrow', text: 'Cuestionario para la nueva web' }),
+    h('h1', null, 'Tu web, a ', h('em', { text: 'pie de obra' }), '.'),
+    h('p', { class: 'hero-lead', text: 'Hola, Diego. Cuéntame cómo trabajas y yo la construyo. Con tus respuestas preparo varias propuestas de diseño para que elijas la que más te guste.' }),
+    h('div', { class: 'hero-grid' }, tb, h('div', { html: PLAN })),
+    cta));
+  const how = h('section', { class: 'welcome-sec' }, h('h2', { text: 'Cómo funciona' }),
+    h('div', { class: 'panel' }, h('ol', { class: 'how' },
+      h('li', null, h('span', { class: 'how-n', text: '1' }), h('div', null, h('b', { text: 'Me cuentas' }), h('span', { text: 'Tu empresa, lo que haces y las obras que has hecho.' }))),
+      h('li', null, h('span', { class: 'how-n', text: '2' }), h('div', null, h('b', { text: 'Eliges estilo' }), h('span', { text: 'Cuatro direcciones de diseño. Me dices cuál te gusta y por qué.' }))),
+      h('li', null, h('span', { class: 'how-n', text: '3' }), h('div', null, h('b', { text: 'Te enseño propuestas' }), h('span', { text: 'Con tu información monto varias webs para que escojas.' }))))));
+  const tips = h('section', { class: 'welcome-sec', style: { paddingBottom: '36px' } }, h('h2', { text: 'Para contestar' }),
+    h('div', { class: 'panel' }, h('ul', { class: 'tips' },
+      h('li', { text: 'Habla como con un cliente. No hace falta escribir bonito.' }),
+      h('li', { text: 'Si no sabes algo, sáltalo. Lo vemos por teléfono.' }),
+      h('li', { text: 'En el teclado del móvil hay un micrófono para dictar las respuestas largas.' }),
+      h('li', { text: 'Todo se guarda solo en este móvil. Puedes parar y seguir otro día.' }),
+      h('li', { text: 'Las fotos me las mandas por WhatsApp al final.' }))));
+  root.append(hero, how, tips);
+  return root;
+}
+
+function modeSeg() {
+  const seg = h('div', { class: 'seg', role: 'group', 'aria-label': 'Cuántas preguntas ver' });
+  [['full', 'Todas'], ['express', 'Solo lo esencial']].forEach(m => {
+    const b = h('button', { type: 'button', 'aria-pressed': S.mode === m[0] ? 'true' : 'false', text: m[1] });
+    b.addEventListener('click', () => { S.mode = m[0]; $$('button', seg).forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); save(); refresh(); });
+    seg.append(b);
+  });
+  return seg;
+}
+
+function renderSheet(sh) {
+  const root = h('div', { class: 'wrap sheet-in' });
+  root.append(h('header', null,
+    h('p', { class: 'mono sh-tag', text: 'Hoja ' + sh.n + ' de ' + SHEETS.length + ' · ' + sh.tag }),
+    h('h2', { class: 'sh-title', text: sh.title }),
+    h('p', { class: 'sh-lead', text: sh.lead }),
+    h('div', { class: 'sh-tools' }, modeSeg(), h('span', { class: 'sh-count', id: 'sh-count' }))));
+  const panel = h('div', { class: 'panel' });
+  sh.fields.forEach(f => panel.append(renderField(f)));
+  root.append(panel);
+  const last = sh.n === SHEETS.length;
+  root.append(h('div', { class: 'nav' },
+    h('button', { type: 'button', class: 'btn btn-ghost', onclick: () => go(sh.n - 1) }, ic('left'), sh.n === 1 ? 'Portada' : 'Anterior'),
+    h('button', { type: 'button', class: 'btn btn-blue', onclick: () => go(sh.n + 1) }, h('span', { text: last ? 'Revisar y enviar' : 'Siguiente: ' + SHEETS[sh.n].tag }), ic('right'))));
+  return root;
+}
+
+/* ================================================================
+   INFORME
+   ================================================================ */
+const indent = (s, pad) => String(s).split('\n').map((l, i) => (i ? pad : '') + l).join('\n');
+const clean = x => (x == null ? '' : String(x).trim());
+function fmtServices() {
+  const d = S.a.servicios; if (!d) return '';
+  const lines = [];
+  SERV.forEach(s => {
+    const x = d[s.id]; if (!x) return;
+    if (!x.on) { lines.push('   - ' + s.name + ': NO lo hace'); return; }
+    let t = '   - ' + s.name; if (x.peso) t += ' [' + x.peso + ']';
+    if (x.items && x.items.length) t += ': ' + x.items.join(', ');
+    if (clean(x.extra)) t += ' + ' + clean(x.extra);
+    lines.push(t);
+  });
+  return '• Servicios (los de la tarjeta, con detalle):\n' + lines.join('\n');
+}
+function fmtProjects() {
+  const L = (S.a.proyectos || []).filter(p => Object.keys(p).some(k => k !== 'n' && k !== 'estrella' && clean(p[k])));
+  if (!L.length) return '';
+  const out = ['• OBRAS REALIZADAS (' + L.length + ')'];
+  const rows = [['Tipo', 'tipo'], ['Dónde', 'lugar'], ['Año', 'anio'], ['Duración', 'duracion'], ['Medidas o alcance', 'medidas'], ['Qué quería el cliente o qué problema había', 'reto'], ['Qué hizo', 'solucion'], ['Materiales y detalles', 'detalles'], ['Lo que más orgullo le da', 'orgullo'], ['Fotos', 'fotos'], ['Se puede enseñar', 'permiso'], ['Opinión del cliente', 'opinion'], ['Firma de la opinión', 'firma']];
+  L.forEach((p, i) => {
+    out.push('   ' + codeOf(p, i) + (p.estrella ? '  ★ OBRA ESTRELLA' : '') + ' · ' + (clean(p.titulo) || 'Sin título'));
+    rows.forEach(r => { if (clean(p[r[1]])) out.push('      - ' + r[0] + ': ' + indent(clean(p[r[1]]), '        ')); });
+  });
+  return out.join('\n');
+}
+function fmtProps() {
+  const d = S.a.prop; if (!d) return '';
+  const R = { amo: 'Me encanta', quiza: 'Puede ser', no: 'No es lo mío' };
+  const lines = PROPS.filter(p => d[p.k] || d.fav === p.k).map(p => '   - ' + p.k + ' · ' + p.name + ': ' + (R[d[p.k]] || 'sin valorar') + (d.fav === p.k ? '  ★ FAVORITA' : ''));
+  if (clean(d.notas)) lines.push('   - Mezcla o comentarios: ' + indent(clean(d.notas), '     '));
+  return lines.length ? '• Propuestas de estilo:\n' + lines.join('\n') : '';
+}
+function fmtTone() {
+  const d = S.a.tono; if (!d) return '';
+  const lines = TONES.filter(t => d[t.k]).map(t => '   - ' + t.l + ' ↔ ' + t.r + ': ' + d[t.k] + ' de 5 (' + toneWord(t, d[t.k]) + ')');
+  return lines.length ? '• Tono de la web (1 = primer extremo, 5 = segundo):\n' + lines.join('\n') : '';
+}
+function fmtMulti(f) {
+  const d = S.a[f.id]; if (!d) return '';
+  const lines = f.parts.filter(p => clean(d[p.k])).map(p => '   - ' + p.label + ': ' + clean(d[p.k]));
+  return lines.length ? '• ' + f.label + ':\n' + lines.join('\n') : '';
+}
+function fmtField(f) {
+  if (!isQ(f) || (f.show && !f.show(S.a))) return '';
+  switch (f.t) {
+    case 'services': return fmtServices();
+    case 'projects': return fmtProjects();
+    case 'proposals': return fmtProps();
+    case 'tone': return fmtTone();
+    case 'multi': return fmtMulti(f);
+    case 'chips': { const v = val(f); return Array.isArray(v) && v.length ? '• ' + f.label + ': ' + v.join(', ') : ''; }
+    default: { const v = clean(val(f)); return v ? '• ' + f.label + ': ' + indent(v, '   ') : ''; }
+  }
+}
+function buildReport() {
+  const p = progress();
+  const L = [];
+  L.push('CUESTIONARIO PARA LA WEB DE ' + CFG.empresa.toUpperCase());
+  L.push('Responde: ' + (clean(val(FMAP.responsable)) || CFG.cliente) + ' · ' + new Date().toLocaleDateString('es-ES') + ' · Completado al ' + p.pct + ' % · Versión ' + (S.mode === 'express' ? 'esencial' : 'completa'));
+  L.push('');
+  SHEETS.forEach(sh => {
+    const block = sh.fields.map(fmtField).filter(Boolean);
+    if (block.length) { L.push('== ' + sh.n + ' · ' + sh.tag.toUpperCase() + ': ' + sh.title.toUpperCase() + ' =='); L.push.apply(L, block); L.push(''); }
+  });
+  L.push('Fin del cuestionario.');
+  return L.join('\n');
+}
+
+async function copyText(text) {
+  try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(text); return true; } } catch (e) { /* se prueba el método alternativo */ }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';
+    document.body.append(ta); ta.select(); ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand('copy'); ta.remove();
+    return !!ok;
+  } catch (e) { return false; }
+}
+const waUrl = () => 'https://wa.me/' + (CFG.whatsapp || '') + '?text=' + encodeURIComponent('Hola ' + CFG.autor + ', ya he terminado el cuestionario de ' + CFG.empresa + '. Te pego aquí mis respuestas:');
+
+/* ================================================================
+   REVISIÓN Y ENVÍO
+   ================================================================ */
+function renderReview() {
+  const p = progress();
+  const root = h('div', { class: 'wrap sheet-in' });
+  root.append(h('header', null,
+    h('p', { class: 'mono sh-tag', text: 'Hoja final · Revisión' }),
+    h('h2', { class: 'sh-title', text: 'Revisa y envía' }),
+    h('p', { class: 'sh-lead', text: 'Así va tu cuestionario. Puedes volver a cualquier hoja y cambiar lo que quieras antes de enviarlo.' })));
+
+  const ticks = [['1,6', 'top:3px'], ['1,2', 'bottom:75%;transform:translateY(50%)'], ['0,8', 'bottom:50%;transform:translateY(50%)'], ['0,4', 'bottom:25%;transform:translateY(50%)'], ['0', 'bottom:3px']];
+  root.append(h('div', { style: { margin: '22px 0 18px' } },
+    h('div', { class: 'pool', role: 'img', 'aria-label': 'Nivel de agua del cuestionario' },
+      h('div', { class: 'pool-w' }),
+      h('div', { class: 'pool-t' }, ticks.map(t => h('span', { style: t[1], text: t[0] }))),
+      h('div', { class: 'pool-read' }, h('b', { id: 'pool-depth', text: depthText(p.pct) }), h('span', { text: 'metros de 1,60' })),
+      h('div', { class: 'pool-full', text: 'Piscina llena' }))));
+
+  const sum = h('div', { class: 'sum' });
+  p.by.forEach(b => {
+    const pct = b.n ? Math.round(100 * b.d / b.n) : 0;
+    const row = h('button', { type: 'button', class: 'sum-row', onclick: () => go(b.sh.n) },
+      h('span', { class: 'sum-n', text: 'H' + b.sh.n }),
+      h('span', { class: 'sum-t' }, b.sh.title, h('small', { text: b.d + ' de ' + b.n + ' contestadas' })),
+      h('span', { class: 'sum-go' }, 'Editar', ic('right')),
+      h('span', { class: 'sum-bar' }, h('i', { style: { width: pct + '%' } })));
+    sum.append(row);
+  });
+  const panel = h('div', { class: 'panel' }, sum);
+  const missing = FIELDS.filter(f => isQ(f) && f.core && f.def === undefined && visible(f) && (score(f) || 0) < 0.5);
+  if (missing.length) {
+    const box = h('div', { class: 'missing' }, h('h3', { text: 'Esenciales sin contestar (' + missing.length + ')' }));
+    missing.slice(0, 8).forEach(f => box.append(h('button', { type: 'button', onclick: () => go(f._sh.n) }, h('span', { text: f.label }), ic('right'))));
+    if (missing.length > 8) box.append(h('p', { class: 'q-h', text: 'Y ' + (missing.length - 8) + ' más.' }));
+    panel.append(box);
+  }
+  root.append(panel);
+
+  const consent = h('button', { type: 'button', class: 'consent', role: 'checkbox', 'aria-checked': S.consent ? 'true' : 'false' },
+    h('span', { class: 'consent-box' }, ic('check')),
+    h('span', null, 'Acepto que ' + CFG.autor + ' use mis respuestas y las fotos que le envíe para preparar las propuestas de la web de ' + CFG.empresa + '.'));
+  const slot = h('div', { id: 'send-slot' });
+  const prep = h('button', { type: 'button', class: 'btn btn-sun', style: { width: '100%' }, onclick: () => { S.prepared = true; drawSend(slot); setTimeout(() => slot.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60); } }, 'Preparar mi envío', ic('right'));
+  const sync = () => { consent.setAttribute('aria-checked', S.consent ? 'true' : 'false'); prep.disabled = !S.consent; };
+  consent.addEventListener('click', () => { S.consent = !S.consent; sync(); save(); });
+  sync();
+  root.append(consent, prep, slot);
+  if (S.prepared) drawSend(slot);
+  root.append(h('div', { class: 'nav' }, h('button', { type: 'button', class: 'btn btn-ghost', onclick: () => go(SHEETS.length) }, ic('left'), 'Volver a la última hoja'), h('span')));
+  return root;
+}
+
+function drawSend(slot) {
+  slot.textContent = '';
+  const report = buildReport();
+  const box = h('section', { class: 'send' });
+  box.append(h('div', { class: 'send-h' }, h('h3', { text: 'Ya casi está' }), h('p', { text: 'Esta página no envía nada por sí sola. Lo mandas tú por WhatsApp en tres pasos.' })));
+
+  const thanks = h('div', { class: 'thanks', hidden: !S.sent }, h('b', { text: 'Gracias, Diego. ' }), 'Cuando pegues el mensaje en el chat y lo envíes, me llega todo y me pongo con tus propuestas.');
+  const copyState = h('p', { class: 'step-state', hidden: !S.copied }, ic('check'), 'Copiado. Ya lo tienes en el portapapeles.');
+  const copyBtn = h('button', { type: 'button', class: 'btn btn-blue' }, ic('copy'), 'Copiar mis respuestas');
+  const step1 = h('div', { class: 'step' + (S.copied ? ' ok' : '') }, h('span', { class: 'step-n', text: '1' }),
+    h('div', null, h('h4', { text: 'Copia tus respuestas' }), h('p', { text: 'Se copia todo el cuestionario en un solo texto.' })),
+    h('div', { class: 'acts' }, copyBtn, copyState));
+  const markSent = () => { S.copied = true; S.sent = true; save(); copyState.hidden = false; step1.classList.add('ok'); thanks.hidden = false; };
+  copyBtn.addEventListener('click', async () => {
+    const ok = await copyText(buildReport());
+    if (ok) { markSent(); toast('Respuestas copiadas'); }
+    else { toast('No se ha podido copiar. Abre Ver el texto y cópialo a mano.'); const d = $('.det', box); if (d) { d.open = true; const t = $('textarea', d); if (t) { t.focus(); t.select(); } } }
+  });
+
+  const wa = h('a', { class: 'btn btn-blue', href: waUrl(), target: '_blank', rel: 'noopener' }, ic('chat'), CFG.whatsapp ? 'Abrir WhatsApp de ' + CFG.autor : 'Abrir WhatsApp y elegir a ' + CFG.autor);
+  wa.addEventListener('click', () => { copyText(buildReport()).then(ok => { if (ok) markSent(); }); });
+  const step2 = h('div', { class: 'step' }, h('span', { class: 'step-n', text: '2' }),
+    h('div', null, h('h4', { text: 'Pégalas en el chat de ' + CFG.autor }), h('p', { text: 'Abre WhatsApp, mantén pulsado en el mensaje, elige Pegar y envía.' + (CFG.email ? ' También puedes mandarlas a ' + CFG.email + '.' : '') })),
+    h('div', { class: 'acts' }, wa));
+
+  const projs = (S.a.proyectos || []).map((q, i) => ({ q, i })).filter(x => clean(x.q.titulo));
+  const step3 = h('div', { class: 'step' }, h('span', { class: 'step-n', text: '3' }),
+    h('div', null, h('h4', { text: 'Manda las fotos por el mismo chat' }),
+      h('p', { text: projs.length ? 'Escribe el código de cada obra en el primer mensaje de cada tanda: ' + projs.map(x => codeOf(x.q, x.i) + ' (' + clean(x.q.titulo) + ')').join(', ') + '.' : 'Escribe el código de cada obra (OBRA-1, OBRA-2…) en el primer mensaje de cada tanda de fotos.' })));
+
+  const dlSlot = h('div', { class: 'step', id: 'dl-slot', hidden: !DL }, h('span', { class: 'step-n', text: '+' }),
+    h('div', null, h('h4', { text: 'Guarda una copia en tu móvil' }), h('p', { text: 'Un archivo de texto con todas tus respuestas.' })),
+    h('div', { class: 'acts' }, h('button', { type: 'button', class: 'btn btn-ghost', onclick: doDownload }, ic('download'), 'Descargar copia')));
+
+  const ta = h('textarea', { readonly: true, 'aria-label': 'Texto completo del cuestionario' }); ta.value = report;
+  const det = h('details', { class: 'det' }, h('summary', { text: 'Ver el texto que se envía' }), ta);
+  box.append(step1, step2, step3, dlSlot, det, thanks);
+  slot.append(box);
+}
+async function doDownload() {
+  if (!DL) return;
+  try { await DL.save({ filename: 'respuestas-aquareforma.txt', data: buildReport() }); toast('Copia guardada'); }
+  catch (e) { if (e && e.code === 'declined') return; toast('No se ha podido guardar la copia'); }
+}
+function nativeDownloads() {
+  return {
+    save: async function (o) {
+      const blob = new Blob([o.data], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const el = document.createElement('a');
+      el.href = url; el.download = o.filename; el.rel = 'noopener';
+      document.body.appendChild(el); el.click(); el.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
+    }
+  };
+}
+function loadDownloads() {
+  try {
+    const c = window.claude;
+    if (c && typeof c.use === 'function') {
+      const pr = c.use('downloads');
+      if (pr && typeof pr.then === 'function') pr.then(d => { DL = d || null; const s = $('#dl-slot'); if (s && DL) s.hidden = false; }).catch(() => {});
+      return;
+    }
+    if (typeof Blob !== 'undefined' && window.URL && typeof URL.createObjectURL === 'function') {
+      DL = nativeDownloads();
+      const s = $('#dl-slot'); if (s) s.hidden = false;
+    }
+  } catch (e) { /* sin descargas */ }
+}
+
+/* ================================================================
+   CABECERA, ÍNDICE Y NAVEGACIÓN
+   ================================================================ */
+function renderIndex() {
+  const box = $('#idx-in'); box.textContent = '';
+  const p = progress();
+  const row = (n, tag, title, count) => h('button', { type: 'button', class: 'idx-row' + (S.sheet === n ? ' cur' : ''), onclick: () => go(n) }, h('span', { class: 'idx-n', text: tag }), h('span', { class: 'idx-t', text: title }), h('span', { class: 'idx-c', text: count }));
+  box.append(row(0, 'Inicio', 'Portada', ''));
+  p.by.forEach(b => box.append(row(b.sh.n, 'H' + b.sh.n, b.sh.tag + ' · ' + b.sh.title, b.d + '/' + b.n)));
+  box.append(row(9, 'Fin', 'Revisar y enviar', p.pct + ' %'));
+}
+function closeIdx() { const i = $('#idx'), b = $('#idx-btn'); if (i) i.hidden = true; if (b) b.setAttribute('aria-expanded', 'false'); }
+function toggleIdx() {
+  const i = $('#idx'), b = $('#idx-btn');
+  const open = i.hidden;
+  if (open) renderIndex();
+  i.hidden = !open; b.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+function updateTop() {
+  const top = $('#top'), n = S.sheet;
+  top.hidden = n === 0;
+  if (n === 0) { closeIdx(); return; }
+  $('#top-l1').textContent = n === 9 ? 'Hoja final · Revisión' : 'Hoja ' + n + ' de ' + SHEETS.length + ' · ' + SHEETS[n - 1].tag;
+  paintSave();
+}
+
+const HASH = n => (n === 0 ? 'inicio' : n === 9 ? 'revision' : 'hoja-' + n);
+function parseHash() {
+  const m = /^#(inicio|revision|hoja-([1-9]))$/.exec(location.hash || '');
+  if (!m) return null;
+  if (m[1] === 'inicio') return 0;
+  if (m[1] === 'revision') return 9;
+  const n = +m[2]; return n <= SHEETS.length ? n : null;
+}
+function show(n) {
+  S.sheet = n;
+  if (n >= 1) S.last = n;
+  if (n !== 9) S.prepared = false;
+  const view = $('#view'); view.textContent = '';
+  view.append(n === 0 ? renderWelcome() : n === 9 ? renderReview() : renderSheet(SHEETS[n - 1]));
+  updateTop(); refresh(); closeIdx();
+  window.scrollTo(0, 0);
+  save();
+}
+function go(n) {
+  n = Math.max(0, Math.min(9, n));
+  if (n >= 1) S.started = true;
+  try { const hs = '#' + HASH(n); if (location.hash !== hs) location.hash = hs; } catch (e) { /* sin hash */ }
+  show(n);
+}
+
+/* ================================================================
+   ARRANQUE
+   ================================================================ */
+function boot(data) {
+  const saved = data && data.a ? data : loadLS();
+  if (saved && saved.a) {
+    S.a = saved.a || {}; S.mode = saved.mode === 'express' ? 'express' : 'full';
+    S.consent = !!saved.consent; S.sent = !!saved.sent; S.started = !!saved.started; S.last = Math.max(1, Math.min(9, saved.last | 0 || 1));
+    if (data && data.a) S.sheet = saved.sheet | 0;
+  }
+  $('#idx-btn').addEventListener('click', toggleIdx);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeIdx(); });
+  window.addEventListener('hashchange', () => { const n = parseHash(); if (n != null && n !== S.sheet) show(n); });
+  window.addEventListener('pagehide', save);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') save(); });
+  try { if (window.claude && window.claude.hot && typeof window.claude.hot.snapshot === 'function') window.claude.hot.snapshot(() => snapshotState()); } catch (e) { /* sin recarga en caliente */ }
+  loadDownloads();
+  const n = parseHash();
+  if (n != null && n >= 1) S.started = true;
+  show(n != null ? n : (data && data.a ? (S.sheet | 0) : 0));
+}
+const start = d => boot(d || {});
+if (window.claude && window.claude.hot && typeof window.claude.hot.ready === 'function') window.claude.hot.ready(start);
+else start(window.claude && window.claude.hot && window.claude.hot.data);
+})();
+
+</script>
+</body>
+</html>
